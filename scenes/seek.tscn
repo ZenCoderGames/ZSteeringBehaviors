@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://dxecrovvx3pr4"]
+
+[ext_resource type="Texture2D" uid="uid://m4k6kkhgrl4p" path="res://art/runtime/Character.png" id="1_8fj5u"]
+[ext_resource type="Script" uid="uid://chbaktxhg8vp3" path="res://scripts/ZAI_Character.gd" id="2_2ghng"]
+[ext_resource type="Script" uid="uid://dlmhsuayspqhw" path="res://scripts/behaviors/ZAI_Behavior_Seek.gd" id="3_eaolc"]
+[ext_resource type="Script" uid="uid://448w2ppi3r1g" path="res://scripts/behaviors/ZAI_Behavior_Flee.gd" id="4_434l8"]
+
+[node name="AIScene" type="Node2D"]
+
+[node name="AIChar" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
+position = Vector2(574, 311)
+texture = ExtResource("1_8fj5u")
+script = ExtResource("2_2ghng")
+behaviorList = [NodePath("AIFlee"), NodePath("AISeek")]
+
+[node name="AISeek" type="Node2D" parent="AIChar"]
+script = ExtResource("3_eaolc")
+debug_draw = false
+priority = 2.0
+
+[node name="AIFlee" type="Node2D" parent="AIChar"]
+script = ExtResource("4_434l8")
