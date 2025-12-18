@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://ckhtbvkgeqbr3"]
+
+[ext_resource type="Script" uid="uid://cgra4mbvmwdvi" path="res://scripts/ZAI_Manager.gd" id="1_kyhr2"]
+[ext_resource type="Texture2D" uid="uid://m4k6kkhgrl4p" path="res://art/runtime/Character.png" id="2_h4ako"]
+[ext_resource type="Script" uid="uid://chbaktxhg8vp3" path="res://scripts/ZAI_Character.gd" id="3_wsriw"]
+[ext_resource type="Script" uid="uid://dm5m58nhjftr7" path="res://scripts/behaviors/ZAI_Behavior_Evade.gd" id="5_y8dup"]
+[ext_resource type="Script" uid="uid://dlmhsuayspqhw" path="res://scripts/behaviors/ZAI_Behavior_Seek.gd" id="6_7riax"]
+
+[node name="AIScene" type="Node2D"]
+script = ExtResource("1_kyhr2")
+fps = 30
+
+[node name="Fleeer" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
+self_modulate = Color(1, 0.24000001, 0.24000001, 1)
+position = Vector2(574, 311)
+texture = ExtResource("2_h4ako")
+script = ExtResource("3_wsriw")
+behaviorList = [NodePath("AIEvade")]
+
+[node name="AIEvade" type="Node2D" parent="Fleeer" node_paths=PackedStringArray("target_char")]
+script = ExtResource("5_y8dup")
+debug_radius = true
+debug = true
+debugColor = Color(0.7511149, 0, 0.096884795, 1)
+target_char = NodePath("../../Seeker")
+
+[node name="Seeker" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
+self_modulate = Color(0.29444468, 0.7441041, 0.721786, 1)
+position = Vector2(131, 516)
+texture = ExtResource("2_h4ako")
+script = ExtResource("3_wsriw")
+max_speed = 250.0
+behaviorList = [NodePath("AISeek")]
+
+[node name="AISeek" type="Node2D" parent="Seeker"]
+script = ExtResource("6_7riax")
+set_target_as_mouse_pos = true
+priority = 2.0
+debug = true
