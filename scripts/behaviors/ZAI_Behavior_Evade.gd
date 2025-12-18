@@ -7,26 +7,26 @@ class_name ZAI_Behavior_Evade
 @export var prediction_time: float = 1.0
 @export var debug_radius: bool = false
 
-var velocity: Vector2 = Vector2.ZERO
+var closest_point_on_line: Vector2 = Vector2.ZERO
 
 func update(delta: float) -> Vector2:
 	super.update(delta)
 	
 	var target_position = get_target_pos()
 	var fps := Engine.get_frames_per_second()
-	var offset = global_position - target_position
+	var offset = parentCharacter.global_position - target_position
 	var distance = offset.length()
 	var desired_velocity = Vector2.ZERO
 	
 	target_position += target_char.velocity * fps * prediction_time * delta
-	var line:Vector2 = target_position - get_target_pos()
-	var lineDirn = line.normalized()
+	var targetVelVector:Vector2 = target_position - get_target_pos()
+	var targetVelDirn = targetVelVector.normalized()
 
 	# Find direction perpendicular to the line, pointing toward the AI character
-	var target_to_character = global_position - get_target_pos()
-	var projection_length = target_to_character.dot(lineDirn)
-	var closest_point_on_line = get_target_pos() + lineDirn * projection_length
-	var direction = (global_position - closest_point_on_line).normalized() 
+	var target_to_character = parentCharacter.global_position - get_target_pos()
+	var projection_length = target_to_character.dot(targetVelDirn)
+	closest_point_on_line = get_target_pos() + targetVelDirn * projection_length
+	var direction = (parentCharacter.global_position - closest_point_on_line).normalized() 
 	
 	if distance < flee_radius:
 		desired_velocity = direction * parentCharacter.max_speed
@@ -38,24 +38,11 @@ func update(delta: float) -> Vector2:
 	return desired_velocity
 
 func debug_draw()->void:
-	var target_position = get_target_pos()
-	var fps := Engine.get_frames_per_second()
-	target_position += target_char.velocity * fps * prediction_time * get_process_delta_time()
-	var line:Vector2 = target_position - get_target_pos()
-	var lineDirn = line.normalized()
-	
-	var target_to_character = global_position - get_target_pos()
-	var projection_length = target_to_character.dot(lineDirn)
-	var closest_point_on_line = get_target_pos() + lineDirn * projection_length
-	var direction = (global_position - closest_point_on_line).normalized()
-	target_position = global_position + direction * projection_length
-	
-	var offset = global_position - target_position
-	var distance = offset.length()
-	
-	var local_target = to_local(target_position)
+	var flee_vector = parentCharacter.global_position - closest_point_on_line
+	var local_target = parentCharacter.global_position + flee_vector
+	local_target = to_local(local_target)
+	var distance = flee_vector.length()
 	if distance < flee_radius:
-		draw_circle(local_target, 5, debugColor)
 		draw_line(Vector2.ZERO, local_target, debugColor, 2)
 	if debug_radius:
 		draw_arc(Vector2.ZERO, flee_radius, 0, TAU, 32, debugColor, 2.0)

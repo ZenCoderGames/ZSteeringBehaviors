@@ -6,15 +6,15 @@ class_name ZAI_Behavior_Flee
 @export var flee_radius: float = 100.0
 @export var debug_radius: bool = false
 
-var velocity: Vector2 = Vector2.ZERO
+var target_position: Vector2 = Vector2.ZERO
 
 func update(delta: float) -> Vector2:
 	super.update(delta)
 	
-	var target_position = get_target_pos()
-	var offset = global_position - target_position
-	var distance = offset.length()
-	var direction = offset.normalized()
+	target_position = get_target_pos()
+	var flee_vector = parentCharacter.global_position - target_position
+	var distance = flee_vector.length()
+	var direction = flee_vector.normalized()
 	var desired_velocity = Vector2.ZERO
 	
 	if distance < flee_radius:
@@ -22,16 +22,15 @@ func update(delta: float) -> Vector2:
 		if use_leave:
 			var ramped_speed = parentCharacter.max_speed * (1.0 - (distance / flee_radius))
 			var clipped_speed = min (ramped_speed, parentCharacter.max_speed)
-			desired_velocity = (clipped_speed / distance) * offset
+			desired_velocity = (clipped_speed / distance) * flee_vector
 
 	return desired_velocity
 
 func debug_draw()->void:
-	var target_position = get_target_pos()
-	var local_target = global_position - target_position
-	local_target = to_local(global_position + local_target)
-	var offset = global_position - target_position
-	var distance = offset.length()
+	var flee_vector = parentCharacter.global_position - target_position
+	var local_target = parentCharacter.global_position + flee_vector
+	local_target = to_local(local_target)
+	var distance = flee_vector.length()
 	if distance < flee_radius:
 		draw_line(Vector2.ZERO, local_target, debugColor, 2)
 	if debug_radius:

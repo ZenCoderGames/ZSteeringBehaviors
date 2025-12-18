@@ -5,6 +5,7 @@ class_name ZAI_Character
 @export var max_speed: float = 200.0
 @export var max_force: float = 500.0
 @export var mass: float = 1.0
+@export var facingRecalcThreshold: float = 0.0
 @export var disable: bool = false
 @export var debug_draw: bool = false
 
@@ -44,5 +45,5 @@ func accumulate_forces_and_update(delta: float) -> void:
 		global_position += velocity * delta
 
 		# Rotate towards velocity direction
-		if velocity.length_squared()>0:
+		if velocity.length_squared()>facingRecalcThreshold:
 			rotation = velocity.angle()

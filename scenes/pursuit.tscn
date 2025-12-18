@@ -21,6 +21,7 @@ behaviorList = [NodePath("AISeek")]
 [node name="AISeek" type="Node2D" parent="Seeker"]
 script = ExtResource("6_y3u08")
 set_target_as_mouse_pos = true
+offsetRecalcThreshold = 5.0
 priority = 2.0
 debug = true
 
@@ -34,6 +35,8 @@ behaviorList = [NodePath("AIPursuit")]
 
 [node name="AIPursuit" type="Node2D" parent="Pursuer" node_paths=PackedStringArray("target_char")]
 script = ExtResource("7_mmsq8")
+offset = Vector2(100, 0)
+offsetRecalcThreshold = 5.0
 debug = true
 debugColor = Color(0.7645988, 0.4047234, 0.78558826, 1)
 target_char = NodePath("../../Seeker")

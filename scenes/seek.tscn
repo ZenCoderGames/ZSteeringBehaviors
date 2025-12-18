@@ -11,14 +11,32 @@ fps = 30
 
 [node name="Seeker" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
 self_modulate = Color(0.29444468, 0.7441041, 0.721786, 1)
+position = Vector2(225, 470)
+texture = ExtResource("1_8fj5u")
+script = ExtResource("2_2ghng")
+max_speed = 300.0
+behaviorList = [NodePath("AISeek")]
+
+[node name="AISeek" type="Node2D" parent="Seeker"]
+script = ExtResource("3_eaolc")
+set_target_as_mouse_pos = true
+offsetRecalcThreshold = 5.0
+debug_arrival = true
+priority = 2.0
+debug = true
+
+[node name="Seeker_02" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
+self_modulate = Color(0.29444468, 0.7441041, 0.721786, 1)
 position = Vector2(131, 516)
 texture = ExtResource("1_8fj5u")
 script = ExtResource("2_2ghng")
 max_speed = 250.0
 behaviorList = [NodePath("AISeek")]
 
-[node name="AISeek" type="Node2D" parent="Seeker"]
+[node name="AISeek" type="Node2D" parent="Seeker_02" node_paths=PackedStringArray("target_char")]
 script = ExtResource("3_eaolc")
-set_target_as_mouse_pos = true
+offset = Vector2(-100, 0)
+debug_arrival = true
 priority = 2.0
 debug = true
+target_char = NodePath("../../Seeker")
