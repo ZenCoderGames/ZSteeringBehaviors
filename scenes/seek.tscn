@@ -7,16 +7,27 @@
 
 [node name="AIScene" type="Node2D"]
 
-[node name="AIChar" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
+[node name="AIChar" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList", "target_char")]
+self_modulate = Color(1, 0.24000001, 0.24000001, 1)
 position = Vector2(574, 311)
 texture = ExtResource("1_8fj5u")
 script = ExtResource("2_2ghng")
-behaviorList = [NodePath("AIFlee"), NodePath("AISeek")]
-
-[node name="AISeek" type="Node2D" parent="AIChar"]
-script = ExtResource("3_eaolc")
-debug_draw = false
-priority = 2.0
+set_target_as_mouse_pos = true
+behaviorList = [NodePath("AIFlee")]
+target_char = NodePath("../AIChar2")
 
 [node name="AIFlee" type="Node2D" parent="AIChar"]
 script = ExtResource("4_434l8")
+
+[node name="AIChar2" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
+self_modulate = Color(0.29444468, 0.7441041, 0.721786, 1)
+position = Vector2(131, 516)
+texture = ExtResource("1_8fj5u")
+script = ExtResource("2_2ghng")
+set_target_as_mouse_pos = true
+behaviorList = [NodePath("AISeek")]
+
+[node name="AISeek" type="Node2D" parent="AIChar2"]
+script = ExtResource("3_eaolc")
+priority = 2.0
+debug = true

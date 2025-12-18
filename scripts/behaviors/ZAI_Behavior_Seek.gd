@@ -4,14 +4,13 @@ class_name ZAI_Behavior_Seek
 
 @export var use_arrival: bool = true
 @export var arrival_radius: float = 100.0
-@export var debug_draw: bool = true
 
 var velocity: Vector2 = Vector2.ZERO
 
 func update() -> Vector2:
-	var target_position = get_global_mouse_position()
-	if debug_draw:
-		queue_redraw()
+	super.update()
+	
+	var target_position = get_target_pos()
 	var offset = target_position - global_position
 	var distance = offset.length()
 	var direction = offset.normalized()
@@ -24,8 +23,8 @@ func update() -> Vector2:
 
 	return desired_velocity
 
-func _draw() -> void:
-	if debug_draw:
-		var target_position = get_global_mouse_position()
-		var local_target = to_local(target_position)
-		draw_arc(local_target, arrival_radius, 0, TAU, 32, Color.YELLOW, 2.0)
+func debug_draw() -> void:
+	var target_position = get_target_pos()
+	var local_target = target_position - global_position
+	local_target = to_local(target_position)
+	draw_arc(local_target, arrival_radius, 0, TAU, 32, Color.YELLOW, 2.0)	
