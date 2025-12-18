@@ -6,6 +6,10 @@ class_name ZAI_Behavior
 @export var priority: float = 1.0
 @export var disable: bool = false
 @export var debug: bool = false
+@export var debugColor: Color = Color.WHITE
+
+@export var target_char:ZAI_Character
+var target_pos:Vector2 = Vector2.ZERO
 
 var parentCharacter:ZAI_Character
 
@@ -15,7 +19,7 @@ func init(parentChar:ZAI_Character):
 func can_update()->bool:
 	return !disable
 	
-func update()->Vector2:
+func update(_delta: float)->Vector2:
 	queue_redraw()
 	return Vector2.ZERO
 
@@ -27,7 +31,10 @@ func debug_draw()->void:
 	pass
 	
 func get_target_pos()->Vector2:
-	if parentCharacter.target_char!=null:
-		return parentCharacter.target_char.global_position
+	if target_char!=null:
+		return target_char.global_position
 	else:
-		return parentCharacter.target_pos
+		return target_pos
+
+func set_target_pos(pos:Vector2)->void:
+	target_pos = pos
