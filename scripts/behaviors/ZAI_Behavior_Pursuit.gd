@@ -22,29 +22,29 @@ func can_update()->bool:
 func update(delta: float) -> Vector2:
 	super.update(delta)
 	
-	var target_position = get_target_pos()
-	var fps := Engine.get_frames_per_second()
+	var target_position:Vector2 = get_target_pos()
+	var fps:float = Engine.get_frames_per_second()
 	target_position += target_char.velocity * fps * prediction_time * delta
-	var distFromPrevTargetPos = (target_position - previous_target_position).length()
+	var distFromPrevTargetPos:float = (target_position - previous_target_position).length()
 	if !has_previous_targetpos_been_set or distFromPrevTargetPos > offsetRecalcThreshold:
 		previous_target_position = target_position
 		has_previous_targetpos_been_set = true
-		var directionToPrevTargetPos = (target_position - parentCharacter.global_position).normalized()	
+		var directionToPrevTargetPos:Vector2 = (target_position - parentCharacter.global_position).normalized()	
 		stored_offset_target_position = target_position + offset.y * directionToPrevTargetPos + offset.x * directionToPrevTargetPos.orthogonal()
-	var approachVector = stored_offset_target_position - parentCharacter.global_position
-	var distance = approachVector.length()
-	var direction = approachVector.normalized()
-	var desired_velocity = direction * parentCharacter.max_speed
+	var approachVector:Vector2 = stored_offset_target_position - parentCharacter.global_position
+	var distance:float = approachVector.length()
+	var direction:Vector2 = approachVector.normalized()
+	var desired_velocity:Vector2 = direction * parentCharacter.max_speed
 	
 	if use_arrival and distance < arrival_radius:
-		var ramped_speed = parentCharacter.max_speed * (distance / arrival_radius)
-		var clipped_speed = min (ramped_speed, parentCharacter.max_speed)
+		var ramped_speed:float = parentCharacter.max_speed * (distance / arrival_radius)
+		var clipped_speed:float = min (ramped_speed, parentCharacter.max_speed)
 		desired_velocity = (clipped_speed / distance) * approachVector
 
 	return desired_velocity
 
 func debug_draw() -> void:
-	var local_target = to_local(stored_offset_target_position)
+	var local_target:Vector2 = to_local(stored_offset_target_position)
 	draw_circle(local_target, 5, debugColor)
 	draw_line(Vector2.ZERO, local_target, debugColor, 2)
 	if debug_arrival:

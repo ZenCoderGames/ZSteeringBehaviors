@@ -35,10 +35,10 @@ func accumulate_forces_and_update(delta: float) -> void:
 		if atleastOneBehaviorWasActive==false:
 			return
 		
-		var steering_force = (desired_velocity - velocity).limit_length(max_force)
+		var steering_force:Vector2 = (desired_velocity - velocity).limit_length(max_force)
 		
 		# Apply force with mass: F = ma, so a = F/m
-		var acceleration_vector = steering_force / mass
+		var acceleration_vector:Vector2 = steering_force / mass
 		velocity += acceleration_vector
 		velocity = velocity.limit_length(max_speed)
 

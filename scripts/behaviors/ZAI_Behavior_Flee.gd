@@ -12,25 +12,25 @@ func update(delta: float) -> Vector2:
 	super.update(delta)
 	
 	target_position = get_target_pos()
-	var flee_vector = parentCharacter.global_position - target_position
-	var distance = flee_vector.length()
-	var direction = flee_vector.normalized()
-	var desired_velocity = Vector2.ZERO
+	var flee_vector:Vector2 = parentCharacter.global_position - target_position
+	var distance:float = flee_vector.length()
+	var direction:Vector2 = flee_vector.normalized()
+	var desired_velocity:Vector2 = Vector2.ZERO
 	
 	if distance < flee_radius:
 		desired_velocity = direction * parentCharacter.max_speed
 		if use_leave:
-			var ramped_speed = parentCharacter.max_speed * (1.0 - (distance / flee_radius))
-			var clipped_speed = min (ramped_speed, parentCharacter.max_speed)
+			var ramped_speed:float = parentCharacter.max_speed * (1.0 - (distance / flee_radius))
+			var clipped_speed:float = min (ramped_speed, parentCharacter.max_speed)
 			desired_velocity = (clipped_speed / distance) * flee_vector
 
 	return desired_velocity
 
 func debug_draw()->void:
-	var flee_vector = parentCharacter.global_position - target_position
-	var local_target = parentCharacter.global_position + flee_vector
+	var flee_vector:Vector2 = parentCharacter.global_position - target_position
+	var local_target:Vector2 = parentCharacter.global_position + flee_vector
 	local_target = to_local(local_target)
-	var distance = flee_vector.length()
+	var distance:float = flee_vector.length()
 	if distance < flee_radius:
 		draw_line(Vector2.ZERO, local_target, debugColor, 2)
 	if debug_radius:

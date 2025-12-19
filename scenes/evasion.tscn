@@ -10,15 +10,16 @@
 script = ExtResource("1_kyhr2")
 fps = 30
 
-[node name="Fleeer" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
+[node name="Evader" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
 self_modulate = Color(1, 0.24000001, 0.24000001, 1)
 position = Vector2(574, 311)
 texture = ExtResource("2_h4ako")
 script = ExtResource("3_wsriw")
 behaviorList = [NodePath("AIEvade")]
 
-[node name="AIEvade" type="Node2D" parent="Fleeer" node_paths=PackedStringArray("target_char")]
+[node name="AIEvade" type="Node2D" parent="Evader" node_paths=PackedStringArray("target_char")]
 script = ExtResource("5_y8dup")
+flee_radius = 200.0
 debug_radius = true
 debug = true
 debugColor = Color(0.7511149, 0, 0.096884795, 1)
@@ -29,7 +30,6 @@ self_modulate = Color(0.29444468, 0.7441041, 0.721786, 1)
 position = Vector2(131, 516)
 texture = ExtResource("2_h4ako")
 script = ExtResource("3_wsriw")
-max_speed = 250.0
 behaviorList = [NodePath("AISeek")]
 
 [node name="AISeek" type="Node2D" parent="Seeker"]

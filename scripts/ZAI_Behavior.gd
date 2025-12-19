@@ -26,7 +26,7 @@ func update(_delta: float)->Vector2:
 func _draw()->void:
 	if parentCharacter!=null and !disable and debug:
 		debug_draw()
-	
+
 func debug_draw()->void:
 	pass
 	
