@@ -30,7 +30,7 @@ func update(delta: float) -> Vector2:
 		previous_target_position = target_position
 		has_previous_targetpos_been_set = true
 		var directionToPrevTargetPos:Vector2 = (target_position - parentCharacter.global_position).normalized()	
-		stored_offset_target_position = target_position + offset.y * directionToPrevTargetPos + offset.x * directionToPrevTargetPos.orthogonal()
+		stored_offset_target_position = target_position + offset.y * directionToPrevTargetPos + offset.x * -directionToPrevTargetPos.orthogonal()
 	var approachVector:Vector2 = stored_offset_target_position - parentCharacter.global_position
 	var distance:float = approachVector.length()
 	var direction:Vector2 = approachVector.normalized()

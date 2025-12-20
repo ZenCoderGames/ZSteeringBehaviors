@@ -1,0 +1,73 @@
+[gd_scene load_steps=6 format=3 uid="uid://d0aaxm8x02ahd"]
+
+[ext_resource type="Texture2D" uid="uid://m4k6kkhgrl4p" path="res://art/runtime/Character.png" id="2_ahe7j"]
+[ext_resource type="Script" uid="uid://chbaktxhg8vp3" path="res://scripts/ZAI_Character.gd" id="3_48yj1"]
+[ext_resource type="Script" uid="uid://dlmhsuayspqhw" path="res://scripts/behaviors/ZAI_Behavior_Seek.gd" id="4_vf14h"]
+[ext_resource type="Script" uid="uid://ehn7jh438wrv" path="res://scripts/behaviors/ZAI_Behavior_ObstacleAvoidance.gd" id="5_48yj1"]
+[ext_resource type="Script" uid="uid://l024pr03sevx" path="res://scripts/ZAI_Obstacle.gd" id="5_ahe7j"]
+
+[node name="AIScene" type="Node2D"]
+
+[node name="Seeker" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
+self_modulate = Color(0.29444468, 0.7441041, 0.721786, 1)
+position = Vector2(231, 465)
+texture = ExtResource("2_ahe7j")
+script = ExtResource("3_48yj1")
+rotation_speed = 10.0
+facingRecalcThreshold = 0.1
+behaviorList = [NodePath("AISeek"), NodePath("AIObstacleAvoidance")]
+
+[node name="AISeek" type="Node2D" parent="Seeker"]
+script = ExtResource("4_vf14h")
+set_target_as_mouse_pos = true
+offsetRecalcThreshold = 5.0
+
+[node name="AIObstacleAvoidance" type="Node2D" parent="Seeker"]
+position = Vector2(2, 0)
+script = ExtResource("5_48yj1")
+feelerLength = 100.0
+feelerWidth = 15.0
+debugFeelers = true
+priority = 2.0
+
+[node name="Obstacle_01" type="Sprite2D" parent="."]
+position = Vector2(456, 301)
+script = ExtResource("5_ahe7j")
+
+[node name="Obstacle_04" type="Sprite2D" parent="."]
+position = Vector2(624, 426)
+script = ExtResource("5_ahe7j")
+
+[node name="Obstacle_05" type="Sprite2D" parent="."]
+position = Vector2(906, 103)
+script = ExtResource("5_ahe7j")
+
+[node name="Obstacle_02" type="Sprite2D" parent="."]
+position = Vector2(689, 232)
+script = ExtResource("5_ahe7j")
+radius = 25.0
+
+[node name="Obstacle_09" type="Sprite2D" parent="."]
+position = Vector2(323, 481)
+script = ExtResource("5_ahe7j")
+radius = 25.0
+
+[node name="Obstacle_06" type="Sprite2D" parent="."]
+position = Vector2(462, 106)
+script = ExtResource("5_ahe7j")
+radius = 35.0
+
+[node name="Obstacle_07" type="Sprite2D" parent="."]
+position = Vector2(271, 176)
+script = ExtResource("5_ahe7j")
+radius = 35.0
+
+[node name="Obstacle_08" type="Sprite2D" parent="."]
+position = Vector2(797, 510)
+script = ExtResource("5_ahe7j")
+radius = 35.0
+
+[node name="Obstacle_03" type="Sprite2D" parent="."]
+position = Vector2(887, 274)
+script = ExtResource("5_ahe7j")
+radius = 25.0

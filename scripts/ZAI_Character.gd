@@ -5,6 +5,7 @@ class_name ZAI_Character
 @export var max_speed: float = 200.0
 @export var max_force: float = 500.0
 @export var mass: float = 1.0
+@export var rotation_speed: float = 8.0
 @export var facingRecalcThreshold: float = 0.0
 @export var disable: bool = false
 @export var debug_draw: bool = false
@@ -23,19 +24,21 @@ func _process(delta: float) -> void:
 		accumulate_forces_and_update(delta)
 
 func accumulate_forces_and_update(delta: float) -> void:
-	var desired_velocity = Vector2.ZERO
+	var accumulatedForce = Vector2.ZERO
 	
 	if behaviorList.size()>0:
 		var atleastOneBehaviorWasActive:bool = false
 		for behavior in behaviorList:
 			if behavior.can_update():
-				desired_velocity += behavior.update(delta) * behavior.weight
-				atleastOneBehaviorWasActive = true
+				var desired_velocity:Vector2 = behavior.update(delta) * behavior.weight
+				if desired_velocity.length_squared()>0:
+					accumulatedForce += (desired_velocity - velocity)
+					atleastOneBehaviorWasActive = true
 		
 		if atleastOneBehaviorWasActive==false:
 			return
 		
-		var steering_force:Vector2 = (desired_velocity - velocity).limit_length(max_force)
+		var steering_force:Vector2 = accumulatedForce.limit_length(max_force)
 		
 		# Apply force with mass: F = ma, so a = F/m
 		var acceleration_vector:Vector2 = steering_force / mass
@@ -46,4 +49,5 @@ func accumulate_forces_and_update(delta: float) -> void:
 
 		# Rotate towards velocity direction
 		if velocity.length_squared()>facingRecalcThreshold:
-			rotation = velocity.angle()
+			rotation = lerp_angle(rotation, velocity.angle(), rotation_speed * delta)
+			#rotation = velocity.angle()
