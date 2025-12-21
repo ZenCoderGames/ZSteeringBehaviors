@@ -10,11 +10,13 @@
 
 [node name="Seeker" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
 self_modulate = Color(0.29444468, 0.7441041, 0.721786, 1)
-position = Vector2(231, 465)
+position = Vector2(231, 466)
 texture = ExtResource("2_ahe7j")
 script = ExtResource("3_48yj1")
-rotation_speed = 10.0
-facingRecalcThreshold = 0.1
+max_force = 300.0
+rotation_speed = 4.0
+facingRecalcThreshold = 5.0
+debug = true
 behaviorList = [NodePath("AISeek"), NodePath("AIObstacleAvoidance")]
 
 [node name="AISeek" type="Node2D" parent="Seeker"]
@@ -23,6 +25,32 @@ set_target_as_mouse_pos = true
 offsetRecalcThreshold = 5.0
 
 [node name="AIObstacleAvoidance" type="Node2D" parent="Seeker"]
+position = Vector2(2, 0)
+script = ExtResource("5_48yj1")
+feelerLength = 100.0
+feelerWidth = 15.0
+debugFeelers = true
+priority = 2.0
+
+[node name="Seeker2" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
+self_modulate = Color(0.74, 0.29599997, 0.3033999, 1)
+position = Vector2(1013, 557)
+texture = ExtResource("2_ahe7j")
+script = ExtResource("3_48yj1")
+max_speed = 150.0
+max_force = 300.0
+rotation_speed = 4.0
+facingRecalcThreshold = 5.0
+debug = true
+behaviorList = [NodePath("AISeek"), NodePath("AIObstacleAvoidance")]
+
+[node name="AISeek" type="Node2D" parent="Seeker2" node_paths=PackedStringArray("target_char")]
+script = ExtResource("4_vf14h")
+set_target_as_mouse_pos = true
+offsetRecalcThreshold = 5.0
+target_char = NodePath("../../Seeker")
+
+[node name="AIObstacleAvoidance" type="Node2D" parent="Seeker2"]
 position = Vector2(2, 0)
 script = ExtResource("5_48yj1")
 feelerLength = 100.0
@@ -48,9 +76,9 @@ script = ExtResource("5_ahe7j")
 radius = 25.0
 
 [node name="Obstacle_09" type="Sprite2D" parent="."]
-position = Vector2(323, 481)
+position = Vector2(369, 486)
 script = ExtResource("5_ahe7j")
-radius = 25.0
+radius = 100.0
 
 [node name="Obstacle_06" type="Sprite2D" parent="."]
 position = Vector2(462, 106)
@@ -64,6 +92,21 @@ radius = 35.0
 
 [node name="Obstacle_08" type="Sprite2D" parent="."]
 position = Vector2(797, 510)
+script = ExtResource("5_ahe7j")
+radius = 35.0
+
+[node name="Obstacle_10" type="Sprite2D" parent="."]
+position = Vector2(609, 552)
+script = ExtResource("5_ahe7j")
+radius = 35.0
+
+[node name="Obstacle_11" type="Sprite2D" parent="."]
+position = Vector2(190, 320)
+script = ExtResource("5_ahe7j")
+radius = 35.0
+
+[node name="Obstacle_12" type="Sprite2D" parent="."]
+position = Vector2(130, 535)
 script = ExtResource("5_ahe7j")
 radius = 35.0
 

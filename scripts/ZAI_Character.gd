@@ -8,7 +8,7 @@ class_name ZAI_Character
 @export var rotation_speed: float = 8.0
 @export var facingRecalcThreshold: float = 0.0
 @export var disable: bool = false
-@export var debug_draw: bool = false
+@export var debug: bool = false
 
 @export var behaviorList:Array[ZAI_Behavior]
 
@@ -22,6 +22,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if !disable:
 		accumulate_forces_and_update(delta)
+		queue_redraw()
 
 func accumulate_forces_and_update(delta: float) -> void:
 	var accumulatedForce = Vector2.ZERO
@@ -34,6 +35,8 @@ func accumulate_forces_and_update(delta: float) -> void:
 				if desired_velocity.length_squared()>0:
 					accumulatedForce += (desired_velocity - velocity)
 					atleastOneBehaviorWasActive = true
+					if accumulatedForce.length() >= max_force:
+						break
 		
 		if atleastOneBehaviorWasActive==false:
 			return
@@ -44,10 +47,15 @@ func accumulate_forces_and_update(delta: float) -> void:
 		var acceleration_vector:Vector2 = steering_force / mass
 		velocity += acceleration_vector
 		velocity = velocity.limit_length(max_speed)
-
+		
 		global_position += velocity * delta
-
+		
 		# Rotate towards velocity direction
 		if velocity.length_squared()>facingRecalcThreshold:
 			rotation = lerp_angle(rotation, velocity.angle(), rotation_speed * delta)
 			#rotation = velocity.angle()
+
+func _draw() -> void:
+	if debug:
+		var local_target:Vector2 = to_local(global_position + velocity)
+		draw_line(Vector2.ZERO, local_target, Color.LIME_GREEN, 2)

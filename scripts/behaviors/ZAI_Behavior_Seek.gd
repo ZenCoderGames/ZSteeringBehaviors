@@ -35,7 +35,7 @@ func update(delta: float) -> Vector2:
 	if use_arrival and distance < arrival_radius:
 		var ramped_speed:float = parentCharacter.max_speed * (distance / arrival_radius)
 		var clipped_speed:float = min (ramped_speed, parentCharacter.max_speed)
-		desired_velocity = (clipped_speed / distance) * approachVector
+		desired_velocity = ((clipped_speed / distance) * approachVector)
 
 	return desired_velocity
 
