@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=3 uid="uid://lqa1rnq4h2eq"]
+
+[ext_resource type="Script" uid="uid://cgra4mbvmwdvi" path="res://scripts/ZAI_Manager.gd" id="1_23sr8"]
+[ext_resource type="Texture2D" uid="uid://m4k6kkhgrl4p" path="res://art/runtime/Character.png" id="2_nadlw"]
+[ext_resource type="Script" uid="uid://chbaktxhg8vp3" path="res://scripts/ZAI_Character.gd" id="3_1o81b"]
+[ext_resource type="Script" uid="uid://dlmhsuayspqhw" path="res://scripts/behaviors/ZAI_Behavior_Seek.gd" id="4_nadlw"]
+[ext_resource type="Script" uid="uid://rfhrgsjvv2am" path="res://scripts/behaviors/ZAI_Wander.gd" id="4_ub0w2"]
+[ext_resource type="Script" uid="uid://b72t1q6fnvtfh" path="res://scripts/behaviors/ZAI_Behavior_Containment.gd" id="5_yh5mc"]
+
+[node name="AIScene" type="Node2D"]
+script = ExtResource("1_23sr8")
+
+[node name="Seeker" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
+self_modulate = Color(0.29444468, 0.7441041, 0.721786, 1)
+position = Vector2(595, 417)
+texture = ExtResource("2_nadlw")
+script = ExtResource("3_1o81b")
+max_speed = 300.0
+debug = true
+behaviorList = [NodePath("AISeek"), NodePath("AIContainment")]
+
+[node name="AISeek" type="Node2D" parent="Seeker"]
+script = ExtResource("4_nadlw")
+set_target_as_mouse_pos = true
+offsetRecalcThreshold = 5.0
+
+[node name="AIContainment" type="Node2D" parent="Seeker" node_paths=PackedStringArray("centerNode")]
+script = ExtResource("5_yh5mc")
+radius = 300.0
+centerNode = NodePath("../../ContainmentCenter")
+priority = 2.0
+debug = true
+
+[node name="Wander" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
+self_modulate = Color(0.68449914, 0.61823654, 0.8625234, 1)
+position = Vector2(505, 289)
+texture = ExtResource("2_nadlw")
+script = ExtResource("3_1o81b")
+max_speed = 150.0
+max_force = 300.0
+behaviorList = [NodePath("AIWander"), NodePath("AIContainment")]
+
+[node name="AIWander" type="Node2D" parent="Wander"]
+script = ExtResource("4_ub0w2")
+strength = 11.0
+offsetFromCharacter = 75.0
+radius = 50.0
+debugRadius = true
+debug = true
+
+[node name="AIContainment" type="Node2D" parent="Wander" node_paths=PackedStringArray("centerNode")]
+script = ExtResource("5_yh5mc")
+radius = 300.0
+centerNode = NodePath("../../ContainmentCenter")
+priority = 2.0
+debug = true
+
+[node name="ContainmentCenter" type="Node2D" parent="."]
+position = Vector2(605, 303)

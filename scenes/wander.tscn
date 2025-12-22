@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://brw3311j6keyi"]
+
+[ext_resource type="Script" uid="uid://cgra4mbvmwdvi" path="res://scripts/ZAI_Manager.gd" id="1_hcn1i"]
+[ext_resource type="Texture2D" uid="uid://m4k6kkhgrl4p" path="res://art/runtime/Character.png" id="2_ht56i"]
+[ext_resource type="Script" uid="uid://chbaktxhg8vp3" path="res://scripts/ZAI_Character.gd" id="3_wrqi8"]
+[ext_resource type="Script" uid="uid://rfhrgsjvv2am" path="res://scripts/behaviors/ZAI_Wander.gd" id="4_hcn1i"]
+
+[node name="AIScene" type="Node2D"]
+script = ExtResource("1_hcn1i")
+
+[node name="Wander" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
+self_modulate = Color(0.29444468, 0.7441041, 0.721786, 1)
+position = Vector2(505, 289)
+texture = ExtResource("2_ht56i")
+script = ExtResource("3_wrqi8")
+max_speed = 50.0
+max_force = 250.0
+debug = true
+behaviorList = [NodePath("AIWander")]
+
+[node name="AIWander" type="Node2D" parent="Wander"]
+script = ExtResource("4_hcn1i")
+strength = 5.0
+offsetFromCharacter = 75.0
+radius = 50.0
+debugRadius = true
+debug = true

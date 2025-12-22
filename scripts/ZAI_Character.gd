@@ -52,7 +52,7 @@ func accumulate_forces_and_update(delta: float) -> void:
 		
 		# Rotate towards velocity direction
 		if velocity.length_squared()>facingRecalcThreshold:
-			rotation = lerp_angle(rotation, velocity.angle(), rotation_speed * delta)
+			global_rotation = lerp_angle(global_rotation, velocity.angle(), rotation_speed * delta)
 			#rotation = velocity.angle()
 
 func _draw() -> void:
