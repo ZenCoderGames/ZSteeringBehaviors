@@ -10,13 +10,14 @@
 
 [node name="Seeker" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
 self_modulate = Color(0.29444468, 0.7441041, 0.721786, 1)
-position = Vector2(231, 466)
+position = Vector2(110, 415)
 texture = ExtResource("2_ahe7j")
 script = ExtResource("3_48yj1")
-max_force = 300.0
-rotation_speed = 4.0
-facingRecalcThreshold = 5.0
+max_force = 50.0
+useSmoothRotation = true
+rotation_speed = 10.0
 debug = true
+forceCombinationType = 1
 behaviorList = [NodePath("AISeek"), NodePath("AIObstacleAvoidance")]
 
 [node name="AISeek" type="Node2D" parent="Seeker"]
@@ -31,6 +32,7 @@ feelerLength = 100.0
 feelerWidth = 15.0
 debugFeelers = true
 priority = 2.0
+debug = true
 
 [node name="Seeker2" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
 self_modulate = Color(0.74, 0.29599997, 0.3033999, 1)
@@ -39,9 +41,10 @@ texture = ExtResource("2_ahe7j")
 script = ExtResource("3_48yj1")
 max_speed = 150.0
 max_force = 300.0
-rotation_speed = 4.0
-facingRecalcThreshold = 5.0
+useSmoothRotation = true
+rotation_speed = 10.0
 debug = true
+forceCombinationType = 1
 behaviorList = [NodePath("AISeek"), NodePath("AIObstacleAvoidance")]
 
 [node name="AISeek" type="Node2D" parent="Seeker2" node_paths=PackedStringArray("target_char")]

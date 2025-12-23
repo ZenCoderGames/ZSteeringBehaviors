@@ -44,9 +44,8 @@ func update(delta: float) -> Vector2:
 			obstacle.set_active()
 			targetObstacle = obstacle
 
-			# Method 1
-			desired_velocity = calc_steering_force_01(obstacle) + parentCharacter.velocity
-
+			desired_velocity = calc_steering_force_01(obstacle)
+			
 			break
 			
 	return desired_velocity
@@ -68,14 +67,14 @@ func calc_steering_force_01(obstacle:ZAI_Obstacle)->Vector2:
 	else:
 		steeringForce = -lateral_direction
 
-	steeringForce *= parentCharacter.max_force
+	steeringForce *= parentCharacter.max_speed
 
 	# Scale by distance - closer obstacles exert stronger avoidance force
 	var strength:float = 1.0 + clamp(distance / (obstacle.radius * 4), 0.0, 1.0)
 	steeringForce *= strength
 
 	return steeringForce
-
+	
 func debug_draw() -> void:
 	if targetObstacle!=null:
 		var desired_velocity = calc_steering_force_01(targetObstacle)

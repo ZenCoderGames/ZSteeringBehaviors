@@ -1,0 +1,103 @@
+[gd_scene load_steps=8 format=3 uid="uid://cmerehlgiwmuw"]
+
+[ext_resource type="Texture2D" uid="uid://m4k6kkhgrl4p" path="res://art/runtime/Character.png" id="2_oqial"]
+[ext_resource type="Script" uid="uid://chbaktxhg8vp3" path="res://scripts/ZAI_Character.gd" id="3_6ywth"]
+[ext_resource type="Script" uid="uid://448w2ppi3r1g" path="res://scripts/behaviors/ZAI_Behavior_Flee.gd" id="3_oqial"]
+[ext_resource type="Script" uid="uid://dlmhsuayspqhw" path="res://scripts/behaviors/ZAI_Behavior_Seek.gd" id="4_0bmux"]
+[ext_resource type="Script" uid="uid://bcujqh5f1pofk" path="res://scripts/behaviors/ZAI_Behavior_WallAvoidance.gd" id="5_lawlw"]
+[ext_resource type="Script" uid="uid://cnx8lyy4egsp2" path="res://scripts/ZAI_Wall.gd" id="6_h8aqj"]
+[ext_resource type="Script" uid="uid://rfhrgsjvv2am" path="res://scripts/behaviors/ZAI_Behavior_Wander.gd" id="6_oqial"]
+
+[node name="AIScene" type="Node2D"]
+
+[node name="Fleeer" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
+self_modulate = Color(1, 0.24000001, 0.24000001, 1)
+position = Vector2(574, 311)
+texture = ExtResource("2_oqial")
+script = ExtResource("3_6ywth")
+max_force = 20.0
+useSmoothRotation = true
+behaviorList = [NodePath("AIFlee"), NodePath("AIWallAvoidance")]
+
+[node name="AIFlee" type="Node2D" parent="Fleeer" node_paths=PackedStringArray("target_char")]
+script = ExtResource("3_oqial")
+debug_radius = true
+debug = true
+debugColor = Color(0.5844146, 0, 0.05526655, 1)
+target_char = NodePath("../../Seeker")
+
+[node name="AIWallAvoidance" type="Node2D" parent="Fleeer"]
+script = ExtResource("5_lawlw")
+feelerLength = 75.0
+feelerWidth = 15.0
+debugFeelers = true
+priority = 2.0
+debug = true
+
+[node name="Seeker" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
+self_modulate = Color(0.29444468, 0.7441041, 0.721786, 1)
+position = Vector2(367, 407)
+texture = ExtResource("2_oqial")
+script = ExtResource("3_6ywth")
+max_speed = 300.0
+max_force = 25.0
+useSmoothRotation = true
+behaviorList = [NodePath("AISeek"), NodePath("AIWallAvoidance")]
+
+[node name="AISeek" type="Node2D" parent="Seeker"]
+script = ExtResource("4_0bmux")
+set_target_as_mouse_pos = true
+offsetRecalcThreshold = 5.0
+debug_arrival = true
+priority = 2.0
+debug = true
+
+[node name="AIWallAvoidance" type="Node2D" parent="Seeker"]
+script = ExtResource("5_lawlw")
+feelerLength = 75.0
+feelerWidth = 15.0
+debugFeelers = true
+priority = 2.0
+debug = true
+
+[node name="Wander" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
+self_modulate = Color(0.29444468, 0.7441041, 0.721786, 1)
+position = Vector2(676, 398)
+texture = ExtResource("2_oqial")
+script = ExtResource("3_6ywth")
+max_speed = 100.0
+max_force = 20.0
+useSmoothRotation = true
+debug = true
+behaviorList = [NodePath("AIWander"), NodePath("AIWallAvoidance")]
+
+[node name="AIWander" type="Node2D" parent="Wander"]
+script = ExtResource("6_oqial")
+strength = 5.0
+offsetFromCharacter = 75.0
+radius = 50.0
+debugRadius = true
+debug = true
+
+[node name="AIWallAvoidance" type="Node2D" parent="Wander"]
+script = ExtResource("5_lawlw")
+feelerLength = 75.0
+feelerWidth = 15.0
+debugFeelers = true
+priority = 2.0
+debug = true
+
+[node name="Wall_01" type="Node2D" parent="."]
+position = Vector2(516, 282)
+script = ExtResource("6_h8aqj")
+points = PackedVector2Array(-265, -30, 53, -47, 350, -2, 466, 119, 381, 339)
+
+[node name="Wall_02" type="Node2D" parent="."]
+position = Vector2(504, 560)
+script = ExtResource("6_h8aqj")
+points = PackedVector2Array(-265, -30, 53, -47, 385, 58)
+
+[node name="Wall_03" type="Node2D" parent="."]
+position = Vector2(518, 284)
+script = ExtResource("6_h8aqj")
+points = PackedVector2Array(-265, -30, -373, 139, -276, 250)
