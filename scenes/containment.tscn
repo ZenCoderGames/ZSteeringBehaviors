@@ -28,7 +28,7 @@ offsetRecalcThreshold = 5.0
 
 [node name="AIContainment" type="Node2D" parent="Seeker" node_paths=PackedStringArray("containmentZone")]
 script = ExtResource("5_yh5mc")
-containmentZone = NodePath("../../ContainmentZone")
+containmentZone = NodePath("../../ContainmentBoxZone")
 priority = 2.0
 debug = true
 
@@ -42,17 +42,29 @@ behaviorList = [NodePath("AIWander"), NodePath("AIContainment")]
 
 [node name="AIWander" type="Node2D" parent="Wander"]
 script = ExtResource("4_ub0w2")
-strength = 1.0
+strength = 5.0
 offsetFromCharacter = 75.0
 radius = 50.0
 debugRadius = true
+debug = true
 
 [node name="AIContainment" type="Node2D" parent="Wander" node_paths=PackedStringArray("containmentZone")]
 script = ExtResource("5_yh5mc")
-containmentZone = NodePath("../../ContainmentZone")
+containmentZone = NodePath("../../ContainmentBoxZone")
 priority = 2.0
 debug = true
 
-[node name="ContainmentZone" type="Node2D" parent="."]
+[node name="ContainmentCircleZone" type="Node2D" parent="."]
+visible = false
 position = Vector2(583, 323)
 script = ExtResource("7_1o81b")
+boxTopLeft = null
+boxBotRight = null
+
+[node name="ContainmentBoxZone" type="Node2D" parent="."]
+position = Vector2(203, 79)
+script = ExtResource("7_1o81b")
+type = 1
+radius = 0.0
+boxTopLeft = null
+boxBotRight = Vector2(800, 500)

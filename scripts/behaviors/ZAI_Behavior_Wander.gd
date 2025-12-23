@@ -16,6 +16,8 @@ func init(parentChar:ZAI_Character):
 	super.init(parentChar)
 	
 	orientation = parentCharacter.global_rotation_degrees + randf() * 360
+	
+	parentChar.connect("OnWallCollision", Callable(self, "_onWallCollision"))
 
 func update(delta: float) -> Vector2:
 	super.update(delta)
@@ -30,8 +32,8 @@ func update(delta: float) -> Vector2:
 	var forward:Vector2 = Vector2.RIGHT.rotated(parentCharacter.global_rotation)
 	if parentCharacter.velocity.length_squared()>0:
 		forward = parentCharacter.velocity.normalized()
-		if prevForward.dot(forward)<0.8:
-			orientation = parentCharacter.global_rotation_degrees
+		#if prevForward.dot(forward)<0.75:
+		#	orientation = parentCharacter.global_rotation_degrees
 		prevForward = forward
 	
 	circleCenter = parentCharacter.global_position + forward * offsetFromCharacter
@@ -45,6 +47,9 @@ func update(delta: float) -> Vector2:
 	desired_velocity = direction * parentCharacter.max_speed
 
 	return desired_velocity
+
+func _onWallCollision():
+	orientation += 180
 
 func debug_draw() -> void:
 	#var local_target:Vector2 = to_local(targetPosition)

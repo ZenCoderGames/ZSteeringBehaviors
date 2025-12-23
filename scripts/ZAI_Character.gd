@@ -18,6 +18,8 @@ enum FORCE_COMBINATION_TYPES { WEIGHTED_SUM, NO_OVERFLOW, ONLY_PRIORITIZED }
 var prevVelocity:Vector2 = Vector2.ZERO
 var velocity:Vector2 = Vector2.ZERO
 
+signal OnWallCollision
+
 func _ready() -> void:
 	ZAIManager.register_character(self)
 	

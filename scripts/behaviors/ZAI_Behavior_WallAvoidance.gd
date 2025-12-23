@@ -49,6 +49,8 @@ func update(delta: float) -> Vector2:
 
 			# Method 1
 			desired_velocity = calc_steering_force_01(wall)
+			
+			parentCharacter.emit_signal("OnWallCollision")
 			#ZAIManager.set_paused(true)
 			
 	return desired_velocity
@@ -67,7 +69,7 @@ func calc_steering_force_01(wall:ZAI_Wall)->Vector2:
 	var reflected_direction:Vector2 = to_wall.bounce(to_wall.normalized()).normalized()
 	steeringForce = reflected_direction
 	
-	var strength:float = 1.0 + clamp(distance / (feelerLength * 4), 0.0, 1.0)
+	var strength:float = 1.0 + clamp(distance / (feelerLength * 2), 0.0, 1.0)
 	steeringForce *= strength
 	
 	steeringForce *= parentCharacter.max_speed

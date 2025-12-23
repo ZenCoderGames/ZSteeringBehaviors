@@ -1,12 +1,48 @@
-[gd_scene load_steps=6 format=3 uid="uid://d0aaxm8x02ahd"]
+[gd_scene load_steps=9 format=3 uid="uid://d0aaxm8x02ahd"]
 
 [ext_resource type="Texture2D" uid="uid://m4k6kkhgrl4p" path="res://art/runtime/Character.png" id="2_ahe7j"]
 [ext_resource type="Script" uid="uid://chbaktxhg8vp3" path="res://scripts/ZAI_Character.gd" id="3_48yj1"]
+[ext_resource type="Script" uid="uid://rfhrgsjvv2am" path="res://scripts/behaviors/ZAI_Behavior_Wander.gd" id="3_vf14h"]
 [ext_resource type="Script" uid="uid://dlmhsuayspqhw" path="res://scripts/behaviors/ZAI_Behavior_Seek.gd" id="4_vf14h"]
 [ext_resource type="Script" uid="uid://ehn7jh438wrv" path="res://scripts/behaviors/ZAI_Behavior_ObstacleAvoidance.gd" id="5_48yj1"]
 [ext_resource type="Script" uid="uid://l024pr03sevx" path="res://scripts/ZAI_Obstacle.gd" id="5_ahe7j"]
+[ext_resource type="Script" uid="uid://b72t1q6fnvtfh" path="res://scripts/behaviors/ZAI_Behavior_Containment.gd" id="5_jakgw"]
+[ext_resource type="Script" uid="uid://0d8ro0lhq1ah" path="res://scripts/ZAI_ContainmentZone.gd" id="7_vf14h"]
 
 [node name="AIScene" type="Node2D"]
+
+[node name="Wander" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
+self_modulate = Color(0.33868065, 0.7567007, 0.57086587, 1)
+position = Vector2(565, 195)
+texture = ExtResource("2_ahe7j")
+script = ExtResource("3_48yj1")
+max_speed = 100.0
+max_force = 20.0
+useSmoothRotation = true
+forceCombinationType = 1
+behaviorList = [NodePath("AIWander"), NodePath("AIObstacleAvoidance"), NodePath("AIContainment")]
+
+[node name="AIWander" type="Node2D" parent="Wander"]
+script = ExtResource("3_vf14h")
+strength = 5.0
+offsetFromCharacter = 75.0
+radius = 50.0
+debugRadius = true
+
+[node name="AIObstacleAvoidance" type="Node2D" parent="Wander"]
+position = Vector2(2, 0)
+script = ExtResource("5_48yj1")
+feelerLength = 100.0
+feelerWidth = 15.0
+debugFeelers = true
+priority = 3.0
+debug = true
+
+[node name="AIContainment" type="Node2D" parent="Wander" node_paths=PackedStringArray("containmentZone")]
+script = ExtResource("5_jakgw")
+containmentZone = NodePath("../../ContainmentCircleZone")
+priority = 2.0
+debug = true
 
 [node name="Seeker" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
 self_modulate = Color(0.29444468, 0.7441041, 0.721786, 1)
@@ -61,59 +97,65 @@ feelerWidth = 15.0
 debugFeelers = true
 priority = 2.0
 
-[node name="Obstacle_01" type="Sprite2D" parent="."]
+[node name="Obstacles" type="Node2D" parent="."]
+
+[node name="Obstacle_01" type="Sprite2D" parent="Obstacles"]
 position = Vector2(456, 301)
 script = ExtResource("5_ahe7j")
 
-[node name="Obstacle_04" type="Sprite2D" parent="."]
+[node name="Obstacle_04" type="Sprite2D" parent="Obstacles"]
 position = Vector2(624, 426)
 script = ExtResource("5_ahe7j")
 
-[node name="Obstacle_05" type="Sprite2D" parent="."]
+[node name="Obstacle_05" type="Sprite2D" parent="Obstacles"]
 position = Vector2(906, 103)
 script = ExtResource("5_ahe7j")
 
-[node name="Obstacle_02" type="Sprite2D" parent="."]
+[node name="Obstacle_02" type="Sprite2D" parent="Obstacles"]
 position = Vector2(689, 232)
 script = ExtResource("5_ahe7j")
 radius = 25.0
 
-[node name="Obstacle_09" type="Sprite2D" parent="."]
+[node name="Obstacle_09" type="Sprite2D" parent="Obstacles"]
 position = Vector2(369, 486)
 script = ExtResource("5_ahe7j")
 radius = 100.0
 
-[node name="Obstacle_06" type="Sprite2D" parent="."]
+[node name="Obstacle_06" type="Sprite2D" parent="Obstacles"]
 position = Vector2(462, 106)
 script = ExtResource("5_ahe7j")
 radius = 35.0
 
-[node name="Obstacle_07" type="Sprite2D" parent="."]
+[node name="Obstacle_07" type="Sprite2D" parent="Obstacles"]
 position = Vector2(271, 176)
 script = ExtResource("5_ahe7j")
 radius = 35.0
 
-[node name="Obstacle_08" type="Sprite2D" parent="."]
+[node name="Obstacle_08" type="Sprite2D" parent="Obstacles"]
 position = Vector2(797, 510)
 script = ExtResource("5_ahe7j")
 radius = 35.0
 
-[node name="Obstacle_10" type="Sprite2D" parent="."]
+[node name="Obstacle_10" type="Sprite2D" parent="Obstacles"]
 position = Vector2(609, 552)
 script = ExtResource("5_ahe7j")
 radius = 35.0
 
-[node name="Obstacle_11" type="Sprite2D" parent="."]
+[node name="Obstacle_11" type="Sprite2D" parent="Obstacles"]
 position = Vector2(190, 320)
 script = ExtResource("5_ahe7j")
 radius = 35.0
 
-[node name="Obstacle_12" type="Sprite2D" parent="."]
+[node name="Obstacle_12" type="Sprite2D" parent="Obstacles"]
 position = Vector2(130, 535)
 script = ExtResource("5_ahe7j")
 radius = 35.0
 
-[node name="Obstacle_03" type="Sprite2D" parent="."]
+[node name="Obstacle_03" type="Sprite2D" parent="Obstacles"]
 position = Vector2(887, 274)
 script = ExtResource("5_ahe7j")
 radius = 25.0
+
+[node name="ContainmentCircleZone" type="Node2D" parent="."]
+position = Vector2(573, 338)
+script = ExtResource("7_vf14h")
