@@ -15,10 +15,38 @@ script = ExtResource("2_0m1yt")
 max_speed = 150.0
 max_force = 40.0
 useSmoothRotation = true
-debug = true
 behaviorList = [NodePath("AIPathFollowing")]
 
 [node name="AIPathFollowing" type="Node2D" parent="PathFollowing" node_paths=PackedStringArray("path")]
+script = ExtResource("3_tyi5h")
+path = NodePath("../../Path_01")
+distanceThreshold = 30.0
+
+[node name="PathFollowing2" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
+self_modulate = Color(0, 0.78668964, 0.49434602, 1)
+position = Vector2(332, 459)
+texture = ExtResource("1_ix5r1")
+script = ExtResource("2_0m1yt")
+max_force = 40.0
+useSmoothRotation = true
+behaviorList = [NodePath("AIPathFollowing")]
+
+[node name="AIPathFollowing" type="Node2D" parent="PathFollowing2" node_paths=PackedStringArray("path")]
+script = ExtResource("3_tyi5h")
+path = NodePath("../../Path_01")
+distanceThreshold = 30.0
+
+[node name="PathFollowing3" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
+self_modulate = Color(0.8204121, 0.61365277, 0.46322894, 1)
+position = Vector2(398, 634)
+texture = ExtResource("1_ix5r1")
+script = ExtResource("2_0m1yt")
+max_speed = 250.0
+max_force = 40.0
+useSmoothRotation = true
+behaviorList = [NodePath("AIPathFollowing")]
+
+[node name="AIPathFollowing" type="Node2D" parent="PathFollowing3" node_paths=PackedStringArray("path")]
 script = ExtResource("3_tyi5h")
 path = NodePath("../../Path_01")
 distanceThreshold = 30.0
@@ -27,4 +55,10 @@ distanceThreshold = 30.0
 position = Vector2(263, 266)
 script = ExtResource("4_tyi5h")
 width = 60.0
-points = PackedVector2Array(-3, 10, 103, -82, 285, -106, 483, -11, 517, 195, 231, 278, 44, 178, 0, 0)
+points = PackedVector2Array(-69.431274, 0.43884277, -8.574768, -100.23732, 67.308014, -160.34251, 158.96841, -199.41087, 331, -168, 546, -198, 736.7295, 26.734863, 531.6205, 299.4621, 267.1278, 101.92938, 143, 320, 16.96994, 195.7807, -43.886566, 86.088745)
+point_in_controls = Array[Vector2]([Vector2(0, 0), Vector2(-22.53946, 13.523666), Vector2(0, 0), Vector2(0, 0), Vector2(-72, -5), Vector2(-174, -34), Vector2(7.5038676, -92.546745), Vector2(61.381653, -12.790344), Vector2(89.40643, -33.05783), Vector2(88, 6), Vector2(16.349571, 42.73554), Vector2(0, 0)])
+point_out_controls = Array[Vector2]([Vector2(-2.2539368, -57.851227), Vector2(35.783283, -21.469954), Vector2(28.549957, -27.798645), Vector2(33.809174, -6.7618256), Vector2(94, 11), Vector2(143, 42), Vector2(-4.5079346, 55.59729), Vector2(-194.24997, 40.476654), Vector2(-78.09366, 20.763672), Vector2(-143, -10), Vector2(-21.006851, -54.909027), Vector2(-33.057846, -45.078888)])
+loop = true
+lock_control_pairs = true
+thickness = 3.0
+curve_resolution = 2
