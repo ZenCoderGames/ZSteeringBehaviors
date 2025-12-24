@@ -24,7 +24,7 @@ behaviorList = [NodePath("AIWander"), NodePath("AIObstacleAvoidance"), NodePath(
 
 [node name="AIWander" type="Node2D" parent="Wander"]
 script = ExtResource("3_vf14h")
-strength = 5.0
+strength = 1.0
 offsetFromCharacter = 75.0
 radius = 50.0
 debugRadius = true
@@ -36,13 +36,11 @@ feelerLength = 100.0
 feelerWidth = 15.0
 debugFeelers = true
 priority = 3.0
-debug = true
 
 [node name="AIContainment" type="Node2D" parent="Wander" node_paths=PackedStringArray("containmentZone")]
 script = ExtResource("5_jakgw")
 containmentZone = NodePath("../../ContainmentCircleZone")
 priority = 2.0
-debug = true
 
 [node name="Seeker" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
 self_modulate = Color(0.29444468, 0.7441041, 0.721786, 1)

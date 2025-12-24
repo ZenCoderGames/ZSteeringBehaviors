@@ -7,6 +7,7 @@ class_name ZAI_Manager
 var characters:Array[ZAI_Character]
 var obstacles:Array[ZAI_Obstacle]
 var walls:Array[ZAI_Wall]
+var paths:Array[ZAI_Path]
 var is_paused:bool = false
 var framestep_requested:bool = false
 
@@ -40,7 +41,13 @@ func register_wall(wall:ZAI_Wall):
 
 func get_walls()->Array[ZAI_Wall]:
 	return walls
+	
+func register_path(path:ZAI_Path):
+	paths.append(path)
 
+func get_paths()->Array[ZAI_Path]:
+	return paths
+	
 func set_paused(val:bool) -> void:
 	is_paused = val
 	Engine.time_scale = 0.0 if is_paused else 1.0

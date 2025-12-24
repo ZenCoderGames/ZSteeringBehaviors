@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://dyga5ceh0ypqv"]
+
+[ext_resource type="Texture2D" uid="uid://m4k6kkhgrl4p" path="res://art/runtime/Character.png" id="1_ix5r1"]
+[ext_resource type="Script" uid="uid://chbaktxhg8vp3" path="res://scripts/ZAI_Character.gd" id="2_0m1yt"]
+[ext_resource type="Script" uid="uid://c2prm4nwxuc0j" path="res://scripts/behaviors/ZAI_Behavior_PathFollowing.gd" id="3_tyi5h"]
+[ext_resource type="Script" uid="uid://cy61muei0n41l" path="res://scripts/ZAI_Path.gd" id="4_tyi5h"]
+
+[node name="AIScene" type="Node2D"]
+
+[node name="PathFollowing" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
+self_modulate = Color(0.29444468, 0.7441041, 0.721786, 1)
+position = Vector2(210, 396)
+texture = ExtResource("1_ix5r1")
+script = ExtResource("2_0m1yt")
+max_speed = 150.0
+max_force = 40.0
+useSmoothRotation = true
+debug = true
+behaviorList = [NodePath("AIPathFollowing")]
+
+[node name="AIPathFollowing" type="Node2D" parent="PathFollowing" node_paths=PackedStringArray("path")]
+script = ExtResource("3_tyi5h")
+path = NodePath("../../Path_01")
+distanceThreshold = 30.0
+
+[node name="Path_01" type="Node2D" parent="."]
+position = Vector2(263, 266)
+script = ExtResource("4_tyi5h")
+width = 60.0
+points = PackedVector2Array(-3, 10, 103, -82, 285, -106, 483, -11, 517, 195, 231, 278, 44, 178, 0, 0)

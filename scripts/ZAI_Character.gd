@@ -23,7 +23,8 @@ signal OnWallCollision
 func _ready() -> void:
 	ZAIManager.register_character(self)
 	
-	behaviorList.sort_custom(func(a, b): return a.priority > b.priority)
+	if behaviorList.size()>1:
+		behaviorList.sort_custom(func(a, b): return a.priority > b.priority)
 	for behavior in behaviorList:
 		behavior.init(self)
 
