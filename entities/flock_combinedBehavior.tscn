@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1i6lxbnck8dn"]
+
+[ext_resource type="Texture2D" uid="uid://m4k6kkhgrl4p" path="res://art/runtime/Character.png" id="1_hx10n"]
+[ext_resource type="Script" uid="uid://chbaktxhg8vp3" path="res://scripts/ZAI_Character.gd" id="2_0ygfx"]
+[ext_resource type="Script" uid="uid://cv4u41t3srk8v" path="res://scripts/behaviors/ZAI_Behavior_Flocking.gd" id="3_o61bj"]
+
+[node name="AIFlock_1" type="Sprite2D" node_paths=PackedStringArray("behaviorList")]
+self_modulate = Color(0.80802184, 0.6119114, 0.54067916, 1)
+texture = ExtResource("1_hx10n")
+script = ExtResource("2_0ygfx")
+max_speed = 150.0
+max_force = 50.0
+useSmoothRotation = true
+forceCombinationType = 1
+behaviorList = [NodePath("AI_Flocking")]
+
+[node name="AI_Flocking" type="Node2D" parent="."]
+position = Vector2(0, -1)
+script = ExtResource("3_o61bj")
+radius = 300.0
+seperation_weight = 2.0

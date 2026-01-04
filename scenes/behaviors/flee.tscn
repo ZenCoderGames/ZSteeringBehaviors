@@ -8,7 +8,6 @@
 
 [node name="AIScene" type="Node2D"]
 script = ExtResource("1_ywh1b")
-fps = 30
 
 [node name="Fleeer" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
 self_modulate = Color(1, 0.24000001, 0.24000001, 1)

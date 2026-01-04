@@ -83,7 +83,6 @@ behaviorList = [NodePath("AISeek"), NodePath("AIObstacleAvoidance")]
 
 [node name="AISeek" type="Node2D" parent="Seeker2" node_paths=PackedStringArray("target_char")]
 script = ExtResource("4_vf14h")
-set_target_as_mouse_pos = true
 offsetRecalcThreshold = 5.0
 target_char = NodePath("../../Seeker")
 

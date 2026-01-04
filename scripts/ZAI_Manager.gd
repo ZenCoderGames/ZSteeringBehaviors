@@ -30,6 +30,14 @@ func _process(delta: float) -> void:
 func register_character(character:ZAI_Character):
 	characters.append(character)
 
+func get_nearby_characters(pos:Vector2, radius:float, groupId:int=-1)->Array[ZAI_Character]:
+	var nearby_characters:Array[ZAI_Character] = []
+	for character in characters:
+		if character.global_position.distance_to(pos) <= radius:
+			if groupId == -1 or character.groupId == groupId:
+				nearby_characters.append(character)
+	return nearby_characters
+
 func register_obstacle(obstacle:ZAI_Obstacle):
 	obstacles.append(obstacle)
 

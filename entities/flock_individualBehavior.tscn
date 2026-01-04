@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://4io6d6dh821s"]
+
+[ext_resource type="Texture2D" uid="uid://m4k6kkhgrl4p" path="res://art/runtime/Character.png" id="1_jx4ux"]
+[ext_resource type="Script" uid="uid://chbaktxhg8vp3" path="res://scripts/ZAI_Character.gd" id="2_l7kcf"]
+[ext_resource type="Script" uid="uid://qljtqvc82l64" path="res://scripts/behaviors/ZAI_Behavior_Seperation.gd" id="3_606aa"]
+[ext_resource type="Script" uid="uid://dx2g2metuqdcc" path="res://scripts/behaviors/ZAI_Behavior_Alignment.gd" id="4_ti02e"]
+[ext_resource type="Script" uid="uid://bbe18gb87p23s" path="res://scripts/behaviors/ZAI_Behavior_Cohesion.gd" id="5_fgr04"]
+[ext_resource type="Script" uid="uid://b72t1q6fnvtfh" path="res://scripts/behaviors/ZAI_Behavior_Containment.gd" id="6_cmoa3"]
+
+[node name="AIFlock_1" type="Sprite2D" node_paths=PackedStringArray("behaviorList")]
+self_modulate = Color(0.80802184, 0.6119114, 0.54067916, 1)
+texture = ExtResource("1_jx4ux")
+script = ExtResource("2_l7kcf")
+max_speed = 150.0
+max_force = 50.0
+useSmoothRotation = true
+behaviorList = [NodePath("AI_Seperation"), NodePath("AI_Alignment"), NodePath("AI_Cohesion"), NodePath("AI_Containment")]
+
+[node name="AI_Seperation" type="Node2D" parent="."]
+position = Vector2(0, -1)
+script = ExtResource("3_606aa")
+max_seperation_distance = 50.0
+
+[node name="AI_Alignment" type="Node2D" parent="."]
+script = ExtResource("4_ti02e")
+radius = 200.0
+
+[node name="AI_Cohesion" type="Node2D" parent="."]
+script = ExtResource("5_fgr04")
+radius = 200.0
+debugColor = Color(0.87508833, 0.41987127, 0.3891241, 1)
+
+[node name="AI_Containment" type="Node2D" parent="."]
+position = Vector2(-421, -376)
+script = ExtResource("6_cmoa3")
+priority = 2.0

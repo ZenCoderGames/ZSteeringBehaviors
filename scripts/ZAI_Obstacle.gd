@@ -1,3 +1,4 @@
+@tool
 extends Node2D
 
 class_name ZAI_Obstacle
@@ -11,6 +12,9 @@ var isActive:bool
 var timer:Timer
 
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+
 	if !disable:
 		ZAIManager.register_obstacle(self)
 		timer = Timer.new()

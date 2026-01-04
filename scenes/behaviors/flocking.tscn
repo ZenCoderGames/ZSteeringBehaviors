@@ -1,0 +1,77 @@
+[gd_scene load_steps=10 format=3 uid="uid://cy1kkm4qihfuh"]
+
+[ext_resource type="Script" uid="uid://cgra4mbvmwdvi" path="res://scripts/ZAI_Manager.gd" id="1_3lv2x"]
+[ext_resource type="Texture2D" uid="uid://m4k6kkhgrl4p" path="res://art/runtime/Character.png" id="2_h21tv"]
+[ext_resource type="PackedScene" uid="uid://c1i6lxbnck8dn" path="res://entities/flock_combinedBehavior.tscn" id="3_30a2s"]
+[ext_resource type="Script" uid="uid://chbaktxhg8vp3" path="res://scripts/ZAI_Character.gd" id="3_nmv6d"]
+[ext_resource type="Script" uid="uid://dlmhsuayspqhw" path="res://scripts/behaviors/ZAI_Behavior_Seek.gd" id="4_4c46a"]
+[ext_resource type="Script" uid="uid://cv4u41t3srk8v" path="res://scripts/behaviors/ZAI_Behavior_Flocking.gd" id="5_06u1e"]
+[ext_resource type="Script" uid="uid://b72t1q6fnvtfh" path="res://scripts/behaviors/ZAI_Behavior_Containment.gd" id="7_30a2s"]
+[ext_resource type="Script" uid="uid://cgcjhkc4o8m0k" path="res://scripts/simulation/ZAI_FlockSpawner.gd" id="8_06u1e"]
+[ext_resource type="Script" uid="uid://0d8ro0lhq1ah" path="res://scripts/ZAI_ContainmentZone.gd" id="9_4it7s"]
+
+[node name="AIScene" type="Node2D"]
+script = ExtResource("1_3lv2x")
+
+[node name="Flock_Leader" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
+self_modulate = Color(0.3313745, 0.7719792, 0.38805267, 1)
+position = Vector2(469, 364)
+texture = ExtResource("2_h21tv")
+script = ExtResource("3_nmv6d")
+max_force = 50.0
+useSmoothRotation = true
+behaviorList = [NodePath("AI_Flocking"), NodePath("AIContainment"), NodePath("AISeek")]
+
+[node name="AISeek" type="Node2D" parent="Flock_Leader" node_paths=PackedStringArray("target_char")]
+script = ExtResource("4_4c46a")
+offsetRecalcThreshold = 5.0
+debug_arrival = true
+priority = 2.0
+target_char = NodePath("../../Seeker")
+
+[node name="AI_Flocking" type="Node2D" parent="Flock_Leader"]
+script = ExtResource("5_06u1e")
+disable = true
+
+[node name="AIContainment" type="Node2D" parent="Flock_Leader" node_paths=PackedStringArray("containmentZone")]
+script = ExtResource("7_30a2s")
+containmentZone = NodePath("../../ContainmentBoxZone")
+weight = 0.5
+priority = 3.0
+disable = true
+
+[node name="Seeker" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
+self_modulate = Color(0.29444468, 0.7441041, 0.721786, 1)
+position = Vector2(595, 178)
+texture = ExtResource("2_h21tv")
+script = ExtResource("3_nmv6d")
+max_speed = 300.0
+useSmoothRotation = true
+behaviorList = [NodePath("AISeek"), NodePath("AIContainment")]
+
+[node name="AISeek" type="Node2D" parent="Seeker"]
+script = ExtResource("4_4c46a")
+set_target_as_mouse_pos = true
+offsetRecalcThreshold = 5.0
+debug_arrival = true
+priority = 2.0
+
+[node name="AIContainment" type="Node2D" parent="Seeker" node_paths=PackedStringArray("containmentZone")]
+script = ExtResource("7_30a2s")
+containmentZone = NodePath("../../ContainmentBoxZone")
+weight = 0.5
+priority = 2.0
+disable = true
+
+[node name="ContainmentBoxZone" type="Node2D" parent="."]
+position = Vector2(81, 22)
+script = ExtResource("9_4it7s")
+type = 1
+radius = 0.0
+boxBotRight = Vector2(1000, 600)
+
+[node name="FlockSpawner" type="Node2D" parent="."]
+position = Vector2(342, 266)
+script = ExtResource("8_06u1e")
+flockPrefab = ExtResource("3_30a2s")
+totalUnitCount = 10
