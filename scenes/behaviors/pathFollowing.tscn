@@ -1,13 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://dyga5ceh0ypqv"]
+[gd_scene load_steps=7 format=3 uid="uid://dyga5ceh0ypqv"]
 
 [ext_resource type="Texture2D" uid="uid://m4k6kkhgrl4p" path="res://art/runtime/Character.png" id="1_ix5r1"]
 [ext_resource type="Script" uid="uid://chbaktxhg8vp3" path="res://scripts/ZAI_Character.gd" id="2_0m1yt"]
 [ext_resource type="Script" uid="uid://c2prm4nwxuc0j" path="res://scripts/behaviors/ZAI_Behavior_PathFollowing.gd" id="3_tyi5h"]
 [ext_resource type="Script" uid="uid://cy61muei0n41l" path="res://scripts/ZAI_Path.gd" id="4_tyi5h"]
+[ext_resource type="Texture2D" uid="uid://dpntsbdut1fod" path="res://art/source/trace_05.png" id="4_va6py"]
+[ext_resource type="Script" uid="uid://d3n3xl7eiqs3l" path="res://scripts/visuals/ZAI_TrailManager.gd" id="5_h7ktj"]
 
 [node name="AIScene" type="Node2D"]
 
-[node name="PathFollowing" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
+[node name="PathFollowing" type="Sprite2D" parent="."]
 self_modulate = Color(0.29444468, 0.7441041, 0.721786, 1)
 position = Vector2(210, 396)
 texture = ExtResource("1_ix5r1")
@@ -15,28 +17,60 @@ script = ExtResource("2_0m1yt")
 max_speed = 150.0
 max_force = 40.0
 useSmoothRotation = true
-behaviorList = [NodePath("AIPathFollowing")]
 
 [node name="AIPathFollowing" type="Node2D" parent="PathFollowing" node_paths=PackedStringArray("path")]
 script = ExtResource("3_tyi5h")
 path = NodePath("../../Path_01")
 distanceThreshold = 30.0
 
-[node name="PathFollowing2" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="PathFollowing" node_paths=PackedStringArray("AI_Char")]
+z_index = -1
+position = Vector2(15, 0)
+rotation = -1.5707964
+amount = 3
+texture = ExtResource("4_va6py")
+lifetime = 0.09999999999999999
+particle_flag_align_y = true
+spread = 180.0
+gravity = Vector2(0, 0)
+scale_amount_min = 0.15
+scale_amount_max = 0.15
+color = Color(0.29411766, 0.74509805, 0.72156864, 0.6862745)
+script = ExtResource("5_h7ktj")
+AI_Char = NodePath("..")
+stopThreshold = 50.0
+
+[node name="PathFollowing2" type="Sprite2D" parent="."]
 self_modulate = Color(0, 0.78668964, 0.49434602, 1)
 position = Vector2(332, 459)
 texture = ExtResource("1_ix5r1")
 script = ExtResource("2_0m1yt")
 max_force = 40.0
 useSmoothRotation = true
-behaviorList = [NodePath("AIPathFollowing")]
 
 [node name="AIPathFollowing" type="Node2D" parent="PathFollowing2" node_paths=PackedStringArray("path")]
 script = ExtResource("3_tyi5h")
 path = NodePath("../../Path_01")
 distanceThreshold = 30.0
 
-[node name="PathFollowing3" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="PathFollowing2" node_paths=PackedStringArray("AI_Char")]
+z_index = -1
+position = Vector2(15, 0)
+rotation = -1.5707964
+amount = 3
+texture = ExtResource("4_va6py")
+lifetime = 0.09999999999999999
+particle_flag_align_y = true
+spread = 180.0
+gravity = Vector2(0, 0)
+scale_amount_min = 0.15
+scale_amount_max = 0.15
+color = Color(0.29411766, 0.74509805, 0.72156864, 0.6862745)
+script = ExtResource("5_h7ktj")
+AI_Char = NodePath("..")
+stopThreshold = 50.0
+
+[node name="PathFollowing3" type="Sprite2D" parent="."]
 self_modulate = Color(0.8204121, 0.61365277, 0.46322894, 1)
 position = Vector2(398, 634)
 texture = ExtResource("1_ix5r1")
@@ -44,12 +78,28 @@ script = ExtResource("2_0m1yt")
 max_speed = 250.0
 max_force = 40.0
 useSmoothRotation = true
-behaviorList = [NodePath("AIPathFollowing")]
 
 [node name="AIPathFollowing" type="Node2D" parent="PathFollowing3" node_paths=PackedStringArray("path")]
 script = ExtResource("3_tyi5h")
 path = NodePath("../../Path_01")
 distanceThreshold = 30.0
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="PathFollowing3" node_paths=PackedStringArray("AI_Char")]
+z_index = -1
+position = Vector2(15, 0)
+rotation = -1.5707964
+amount = 3
+texture = ExtResource("4_va6py")
+lifetime = 0.09999999999999999
+particle_flag_align_y = true
+spread = 180.0
+gravity = Vector2(0, 0)
+scale_amount_min = 0.15
+scale_amount_max = 0.15
+color = Color(0.29411766, 0.74509805, 0.72156864, 0.6862745)
+script = ExtResource("5_h7ktj")
+AI_Char = NodePath("..")
+stopThreshold = 50.0
 
 [node name="Path_01" type="Node2D" parent="."]
 position = Vector2(263, 266)

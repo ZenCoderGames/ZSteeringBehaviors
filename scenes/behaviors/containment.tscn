@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://lqa1rnq4h2eq"]
+[gd_scene load_steps=10 format=3 uid="uid://lqa1rnq4h2eq"]
 
 [ext_resource type="Script" uid="uid://cgra4mbvmwdvi" path="res://scripts/ZAI_Manager.gd" id="1_23sr8"]
 [ext_resource type="Texture2D" uid="uid://m4k6kkhgrl4p" path="res://art/runtime/Character.png" id="2_nadlw"]
@@ -6,7 +6,9 @@
 [ext_resource type="Script" uid="uid://dlmhsuayspqhw" path="res://scripts/behaviors/ZAI_Behavior_Seek.gd" id="4_nadlw"]
 [ext_resource type="Script" uid="uid://rfhrgsjvv2am" path="res://scripts/behaviors/ZAI_Behavior_Wander.gd" id="4_ub0w2"]
 [ext_resource type="Script" uid="uid://b72t1q6fnvtfh" path="res://scripts/behaviors/ZAI_Behavior_Containment.gd" id="5_yh5mc"]
+[ext_resource type="Texture2D" uid="uid://dpntsbdut1fod" path="res://art/source/trace_05.png" id="6_ky1u2"]
 [ext_resource type="Script" uid="uid://0d8ro0lhq1ah" path="res://scripts/ZAI_ContainmentZone.gd" id="7_1o81b"]
+[ext_resource type="Script" uid="uid://d3n3xl7eiqs3l" path="res://scripts/visuals/ZAI_TrailManager.gd" id="7_7jynt"]
 
 [node name="AIScene" type="Node2D"]
 script = ExtResource("1_23sr8")
@@ -31,6 +33,23 @@ containmentZone = NodePath("../../ContainmentBoxZone")
 priority = 2.0
 debug = true
 
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Seeker" node_paths=PackedStringArray("AI_Char")]
+z_index = -1
+position = Vector2(15, 0)
+rotation = -1.5707964
+amount = 3
+texture = ExtResource("6_ky1u2")
+lifetime = 0.09999999999999999
+particle_flag_align_y = true
+spread = 180.0
+gravity = Vector2(0, 0)
+scale_amount_min = 0.15
+scale_amount_max = 0.15
+color = Color(0.29411766, 0.74509805, 0.72156864, 0.6862745)
+script = ExtResource("7_7jynt")
+AI_Char = NodePath("..")
+stopThreshold = 50.0
+
 [node name="Wander" type="Sprite2D" parent="."]
 self_modulate = Color(0.68449914, 0.61823654, 0.8625234, 1)
 position = Vector2(505, 289)
@@ -51,6 +70,23 @@ script = ExtResource("5_yh5mc")
 containmentZone = NodePath("../../ContainmentBoxZone")
 priority = 2.0
 debug = true
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Wander" node_paths=PackedStringArray("AI_Char")]
+z_index = -1
+position = Vector2(15, 0)
+rotation = -1.5707964
+amount = 3
+texture = ExtResource("6_ky1u2")
+lifetime = 0.09999999999999999
+particle_flag_align_y = true
+spread = 180.0
+gravity = Vector2(0, 0)
+scale_amount_min = 0.15
+scale_amount_max = 0.15
+color = Color(0.29411766, 0.74509805, 0.72156864, 0.6862745)
+script = ExtResource("7_7jynt")
+AI_Char = NodePath("..")
+stopThreshold = 50.0
 
 [node name="ContainmentCircleZone" type="Node2D" parent="."]
 visible = false

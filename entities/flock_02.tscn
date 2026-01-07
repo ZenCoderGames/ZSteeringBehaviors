@@ -9,15 +9,13 @@
 [ext_resource type="Script" uid="uid://bcujqh5f1pofk" path="res://scripts/behaviors/ZAI_Behavior_WallAvoidance.gd" id="4_wimx5"]
 [ext_resource type="Script" uid="uid://dlmhsuayspqhw" path="res://scripts/behaviors/ZAI_Behavior_Seek.gd" id="5_mdwre"]
 [ext_resource type="Texture2D" uid="uid://dpntsbdut1fod" path="res://art/source/trace_05.png" id="9_pne38"]
-
-[sub_resource type="Curve" id="Curve_pne38"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
+[ext_resource type="Script" uid="uid://d3n3xl7eiqs3l" path="res://scripts/visuals/ZAI_TrailManager.gd" id="10_lsjgc"]
 
 [node name="AIFlock_1" type="Sprite2D"]
 self_modulate = Color(0.80802184, 0.6119114, 0.54067916, 1)
 texture = ExtResource("1_tp65k")
 script = ExtResource("2_wimx5")
+max_speed = 150.0
 max_force = 50.0
 useSmoothRotation = true
 forceCombinationType = 1
@@ -65,8 +63,9 @@ strength = 10.0
 offsetFromCharacter = 100.0
 radius = 75.0
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-position = Vector2(10, 0)
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="." node_paths=PackedStringArray("AI_Char")]
+z_index = -1
+position = Vector2(15, 0)
 rotation = -1.5707964
 amount = 3
 texture = ExtResource("9_pne38")
@@ -76,5 +75,7 @@ spread = 180.0
 gravity = Vector2(0, 0)
 scale_amount_min = 0.15
 scale_amount_max = 0.15
-scale_amount_curve = SubResource("Curve_pne38")
-color = Color(0.8901961, 0.4509804, 0.44705883, 0.6862745)
+color = Color(0.29411766, 0.74509805, 0.72156864, 0.6862745)
+script = ExtResource("10_lsjgc")
+AI_Char = NodePath("..")
+stopThreshold = 50.0

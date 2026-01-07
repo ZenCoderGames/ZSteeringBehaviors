@@ -1,20 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://bqd5mhporefvl"]
+[gd_scene load_steps=8 format=3 uid="uid://bqd5mhporefvl"]
 
 [ext_resource type="Script" uid="uid://cgra4mbvmwdvi" path="res://scripts/ZAI_Manager.gd" id="1_ywh1b"]
 [ext_resource type="Texture2D" uid="uid://m4k6kkhgrl4p" path="res://art/runtime/Character.png" id="2_d86fg"]
 [ext_resource type="Script" uid="uid://chbaktxhg8vp3" path="res://scripts/ZAI_Character.gd" id="3_aukv1"]
 [ext_resource type="Script" uid="uid://448w2ppi3r1g" path="res://scripts/behaviors/ZAI_Behavior_Flee.gd" id="4_eix0p"]
+[ext_resource type="Texture2D" uid="uid://dpntsbdut1fod" path="res://art/source/trace_05.png" id="5_b81rn"]
+[ext_resource type="Script" uid="uid://d3n3xl7eiqs3l" path="res://scripts/visuals/ZAI_TrailManager.gd" id="6_nnrrs"]
 [ext_resource type="Script" uid="uid://dlmhsuayspqhw" path="res://scripts/behaviors/ZAI_Behavior_Seek.gd" id="6_serxv"]
 
 [node name="AIScene" type="Node2D"]
 script = ExtResource("1_ywh1b")
 
-[node name="Fleeer" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
+[node name="Fleeer" type="Sprite2D" parent="."]
 self_modulate = Color(1, 0.24000001, 0.24000001, 1)
 position = Vector2(574, 311)
 texture = ExtResource("2_d86fg")
 script = ExtResource("3_aukv1")
-behaviorList = [NodePath("AIFlee")]
 
 [node name="AIFlee" type="Node2D" parent="Fleeer" node_paths=PackedStringArray("target_char")]
 script = ExtResource("4_eix0p")
@@ -23,16 +24,49 @@ debug = true
 debugColor = Color(0.5844146, 0, 0.05526655, 1)
 target_char = NodePath("../../Seeker")
 
-[node name="Seeker" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Fleeer" node_paths=PackedStringArray("AI_Char")]
+z_index = -1
+position = Vector2(15, 0)
+rotation = -1.5707964
+amount = 3
+texture = ExtResource("5_b81rn")
+lifetime = 0.09999999999999999
+particle_flag_align_y = true
+spread = 180.0
+gravity = Vector2(0, 0)
+scale_amount_min = 0.15
+scale_amount_max = 0.15
+color = Color(0.29411766, 0.74509805, 0.72156864, 0.6862745)
+script = ExtResource("6_nnrrs")
+AI_Char = NodePath("..")
+stopThreshold = 50.0
+
+[node name="Seeker" type="Sprite2D" parent="."]
 self_modulate = Color(0.29444468, 0.7441041, 0.721786, 1)
 position = Vector2(131, 516)
 texture = ExtResource("2_d86fg")
 script = ExtResource("3_aukv1")
 max_speed = 250.0
-behaviorList = [NodePath("AISeek")]
 
 [node name="AISeek" type="Node2D" parent="Seeker"]
 script = ExtResource("6_serxv")
 set_target_as_mouse_pos = true
 priority = 2.0
 debug = true
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Seeker" node_paths=PackedStringArray("AI_Char")]
+z_index = -1
+position = Vector2(15, 0)
+rotation = -1.5707964
+amount = 3
+texture = ExtResource("5_b81rn")
+lifetime = 0.09999999999999999
+particle_flag_align_y = true
+spread = 180.0
+gravity = Vector2(0, 0)
+scale_amount_min = 0.15
+scale_amount_max = 0.15
+color = Color(0.29411766, 0.74509805, 0.72156864, 0.6862745)
+script = ExtResource("6_nnrrs")
+AI_Char = NodePath("..")
+stopThreshold = 50.0

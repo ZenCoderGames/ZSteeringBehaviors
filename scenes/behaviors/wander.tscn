@@ -1,14 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://brw3311j6keyi"]
+[gd_scene load_steps=7 format=3 uid="uid://brw3311j6keyi"]
 
 [ext_resource type="Script" uid="uid://cgra4mbvmwdvi" path="res://scripts/ZAI_Manager.gd" id="1_hcn1i"]
 [ext_resource type="Texture2D" uid="uid://m4k6kkhgrl4p" path="res://art/runtime/Character.png" id="2_ht56i"]
 [ext_resource type="Script" uid="uid://chbaktxhg8vp3" path="res://scripts/ZAI_Character.gd" id="3_wrqi8"]
 [ext_resource type="Script" uid="uid://rfhrgsjvv2am" path="res://scripts/behaviors/ZAI_Behavior_Wander.gd" id="4_hcn1i"]
+[ext_resource type="Texture2D" uid="uid://dpntsbdut1fod" path="res://art/source/trace_05.png" id="5_6akcc"]
+[ext_resource type="Script" uid="uid://d3n3xl7eiqs3l" path="res://scripts/visuals/ZAI_TrailManager.gd" id="6_mqy41"]
 
 [node name="AIScene" type="Node2D"]
 script = ExtResource("1_hcn1i")
 
-[node name="Wander" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
+[node name="Wander" type="Sprite2D" parent="."]
 self_modulate = Color(0.29444468, 0.7441041, 0.721786, 1)
 position = Vector2(505, 289)
 texture = ExtResource("2_ht56i")
@@ -16,7 +18,6 @@ script = ExtResource("3_wrqi8")
 max_speed = 100.0
 max_force = 50.0
 debug = true
-behaviorList = [NodePath("AIWander")]
 
 [node name="AIWander" type="Node2D" parent="Wander"]
 script = ExtResource("4_hcn1i")
@@ -24,3 +25,20 @@ strength = 10.0
 radius = 75.0
 debugRadius = true
 debug = true
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Wander" node_paths=PackedStringArray("AI_Char")]
+z_index = -1
+position = Vector2(15, 0)
+rotation = -1.5707964
+amount = 3
+texture = ExtResource("5_6akcc")
+lifetime = 0.09999999999999999
+particle_flag_align_y = true
+spread = 180.0
+gravity = Vector2(0, 0)
+scale_amount_min = 0.15
+scale_amount_max = 0.15
+color = Color(0.29411766, 0.74509805, 0.72156864, 0.6862745)
+script = ExtResource("6_mqy41")
+AI_Char = NodePath("..")
+stopThreshold = 50.0
