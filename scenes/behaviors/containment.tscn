@@ -11,7 +11,7 @@
 [node name="AIScene" type="Node2D"]
 script = ExtResource("1_23sr8")
 
-[node name="Seeker" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
+[node name="Seeker" type="Sprite2D" parent="."]
 self_modulate = Color(0.29444468, 0.7441041, 0.721786, 1)
 position = Vector2(595, 417)
 texture = ExtResource("2_nadlw")
@@ -19,7 +19,6 @@ script = ExtResource("3_1o81b")
 max_speed = 300.0
 max_force = 50.0
 debug = true
-behaviorList = [NodePath("AISeek"), NodePath("AIContainment")]
 
 [node name="AISeek" type="Node2D" parent="Seeker"]
 script = ExtResource("4_nadlw")
@@ -32,13 +31,12 @@ containmentZone = NodePath("../../ContainmentBoxZone")
 priority = 2.0
 debug = true
 
-[node name="Wander" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
+[node name="Wander" type="Sprite2D" parent="."]
 self_modulate = Color(0.68449914, 0.61823654, 0.8625234, 1)
 position = Vector2(505, 289)
 texture = ExtResource("2_nadlw")
 script = ExtResource("3_1o81b")
 max_force = 50.0
-behaviorList = [NodePath("AIWander"), NodePath("AIContainment")]
 
 [node name="AIWander" type="Node2D" parent="Wander"]
 script = ExtResource("4_ub0w2")
@@ -58,13 +56,10 @@ debug = true
 visible = false
 position = Vector2(583, 323)
 script = ExtResource("7_1o81b")
-boxTopLeft = null
-boxBotRight = null
 
 [node name="ContainmentBoxZone" type="Node2D" parent="."]
 position = Vector2(203, 79)
 script = ExtResource("7_1o81b")
 type = 1
 radius = 0.0
-boxTopLeft = null
 boxBotRight = Vector2(800, 500)

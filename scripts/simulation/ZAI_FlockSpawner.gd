@@ -32,3 +32,8 @@ func _ready() -> void:
 			var flockBehavior:ZAI_Behavior_Flocking = flockUnit.get_behavior_of_type(ZAI_Behavior_Flocking)
 			if flockBehavior!=null:
 				flockBehavior.groupId = groupId
+				
+		for child in flockUnit.get_children():
+			if child is CPUParticles2D:
+				var newColor:Color = Color(color.r, color.g, color.b, (175.0/255.0))
+				child.color = newColor

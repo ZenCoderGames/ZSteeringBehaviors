@@ -1,21 +1,26 @@
-[gd_scene load_steps=8 format=3 uid="uid://dgl60f47ul5rd"]
+[gd_scene load_steps=11 format=3 uid="uid://dgl60f47ul5rd"]
 
 [ext_resource type="Texture2D" uid="uid://m4k6kkhgrl4p" path="res://art/runtime/Character.png" id="1_tp65k"]
 [ext_resource type="Script" uid="uid://chbaktxhg8vp3" path="res://scripts/ZAI_Character.gd" id="2_wimx5"]
 [ext_resource type="Script" uid="uid://448w2ppi3r1g" path="res://scripts/behaviors/ZAI_Behavior_Flee.gd" id="3_4o1yq"]
+[ext_resource type="Script" uid="uid://rfhrgsjvv2am" path="res://scripts/behaviors/ZAI_Behavior_Wander.gd" id="3_ancge"]
 [ext_resource type="Script" uid="uid://cv4u41t3srk8v" path="res://scripts/behaviors/ZAI_Behavior_Flocking.gd" id="3_mdwre"]
 [ext_resource type="Script" uid="uid://ehn7jh438wrv" path="res://scripts/behaviors/ZAI_Behavior_ObstacleAvoidance.gd" id="3_rkcb7"]
 [ext_resource type="Script" uid="uid://bcujqh5f1pofk" path="res://scripts/behaviors/ZAI_Behavior_WallAvoidance.gd" id="4_wimx5"]
 [ext_resource type="Script" uid="uid://dlmhsuayspqhw" path="res://scripts/behaviors/ZAI_Behavior_Seek.gd" id="5_mdwre"]
+[ext_resource type="Texture2D" uid="uid://dpntsbdut1fod" path="res://art/source/trace_05.png" id="9_pne38"]
 
-[node name="AIFlock_1" type="Sprite2D" node_paths=PackedStringArray("behaviorList")]
+[sub_resource type="Curve" id="Curve_pne38"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="AIFlock_1" type="Sprite2D"]
 self_modulate = Color(0.80802184, 0.6119114, 0.54067916, 1)
 texture = ExtResource("1_tp65k")
 script = ExtResource("2_wimx5")
 max_force = 50.0
 useSmoothRotation = true
 forceCombinationType = 1
-behaviorList = [NodePath("AI_Flocking"), NodePath("AI_WallAvoidance"), NodePath("AI_Seek"), NodePath("AIFlee"), NodePath("AIObstacleAvoidance")]
 
 [node name="AI_WallAvoidance" type="Node2D" parent="."]
 script = ExtResource("4_wimx5")
@@ -45,10 +50,31 @@ script = ExtResource("5_mdwre")
 use_arrival = false
 offset = Vector2(0, -100)
 weight = 1.5
+disable = true
 
 [node name="AI_Flocking" type="Node2D" parent="."]
 position = Vector2(0, -1)
 script = ExtResource("3_mdwre")
-radius = 300.0
 max_seperation_distance = 50.0
 seperation_weight = 2.0
+
+[node name="AIWander" type="Node2D" parent="."]
+position = Vector2(3, -2)
+script = ExtResource("3_ancge")
+strength = 10.0
+offsetFromCharacter = 100.0
+radius = 75.0
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(10, 0)
+rotation = -1.5707964
+amount = 3
+texture = ExtResource("9_pne38")
+lifetime = 0.09999999999999999
+particle_flag_align_y = true
+spread = 180.0
+gravity = Vector2(0, 0)
+scale_amount_min = 0.15
+scale_amount_max = 0.15
+scale_amount_curve = SubResource("Curve_pne38")
+color = Color(0.8901961, 0.4509804, 0.44705883, 0.6862745)

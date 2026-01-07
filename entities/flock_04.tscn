@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://bmall3won7lqk"]
+
+[ext_resource type="Texture2D" uid="uid://m4k6kkhgrl4p" path="res://art/runtime/Character.png" id="1_q0qy3"]
+[ext_resource type="Script" uid="uid://chbaktxhg8vp3" path="res://scripts/ZAI_Character.gd" id="2_yjp1p"]
+[ext_resource type="Script" uid="uid://bcujqh5f1pofk" path="res://scripts/behaviors/ZAI_Behavior_WallAvoidance.gd" id="3_f0t4y"]
+[ext_resource type="Script" uid="uid://ehn7jh438wrv" path="res://scripts/behaviors/ZAI_Behavior_ObstacleAvoidance.gd" id="5_racop"]
+[ext_resource type="Script" uid="uid://448w2ppi3r1g" path="res://scripts/behaviors/ZAI_Behavior_Flee.gd" id="6_0epp4"]
+[ext_resource type="Script" uid="uid://dlmhsuayspqhw" path="res://scripts/behaviors/ZAI_Behavior_Seek.gd" id="7_sn1vf"]
+[ext_resource type="Script" uid="uid://cv4u41t3srk8v" path="res://scripts/behaviors/ZAI_Behavior_Flocking.gd" id="8_dxwwa"]
+
+[node name="AIFlock_1" type="Sprite2D" node_paths=PackedStringArray("behaviorList")]
+self_modulate = Color(0.80802184, 0.6119114, 0.54067916, 1)
+texture = ExtResource("1_q0qy3")
+script = ExtResource("2_yjp1p")
+max_force = 50.0
+useSmoothRotation = true
+forceCombinationType = 1
+behaviorList = [NodePath("AI_Flocking"), NodePath("AI_WallAvoidance"), NodePath("AI_Seek"), NodePath("AIFlee"), NodePath("AIObstacleAvoidance")]
+
+[node name="AI_WallAvoidance" type="Node2D" parent="."]
+script = ExtResource("3_f0t4y")
+feelerLength = 75.0
+feelerWidth = 15.0
+priority = 4.0
+debugColor = Color(1, 0.23921569, 0.23921569, 1)
+
+[node name="AIObstacleAvoidance" type="Node2D" parent="."]
+position = Vector2(2, -1)
+script = ExtResource("5_racop")
+feelerLength = 150.0
+feelerWidth = 15.0
+debugFeelers = true
+priority = 3.0
+
+[node name="AIFlee" type="Node2D" parent="."]
+script = ExtResource("6_0epp4")
+use_leave = false
+flee_radius = 150.0
+debug_radius = true
+priority = 2.0
+debugColor = Color(0.5844146, 0, 0.05526655, 1)
+
+[node name="AI_Seek" type="Node2D" parent="."]
+script = ExtResource("7_sn1vf")
+use_arrival = false
+offset = Vector2(0, -100)
+weight = 1.5
+
+[node name="AI_Flocking" type="Node2D" parent="."]
+position = Vector2(0, -1)
+script = ExtResource("8_dxwwa")
+radius = 300.0
+max_seperation_distance = 50.0
+seperation_weight = 0.25

@@ -3,6 +3,7 @@ extends Node2D
 class_name ZAI_Character
 
 @export var groupId: int = 0
+@export var collisionRadius: float = 30.0
 @export var max_speed: float = 200.0
 @export var max_force: float = 500.0
 @export var mass: float = 1.0
@@ -14,7 +15,7 @@ class_name ZAI_Character
 enum FORCE_COMBINATION_TYPES { WEIGHTED_SUM, NO_OVERFLOW, ONLY_PRIORITIZED }
 @export var forceCombinationType:FORCE_COMBINATION_TYPES = FORCE_COMBINATION_TYPES.WEIGHTED_SUM
 
-@export var behaviorList:Array[ZAI_Behavior]
+var behaviorList:Array[ZAI_Behavior]
 
 var prevVelocity:Vector2 = Vector2.ZERO
 var velocity:Vector2 = Vector2.ZERO
@@ -23,7 +24,13 @@ signal OnWallCollision
 
 func _ready() -> void:
 	ZAIManager.register_character(self)
-	
+
+	# Automatically populate behaviorList from child nodes
+	behaviorList.clear()
+	for child in get_children():
+		if child is ZAI_Behavior:
+			behaviorList.append(child)
+
 	if behaviorList.size()>1:
 		behaviorList.sort_custom(func(a, b): return a.priority > b.priority)
 	for behavior in behaviorList:

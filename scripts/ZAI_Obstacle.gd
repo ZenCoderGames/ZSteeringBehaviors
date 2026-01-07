@@ -5,6 +5,8 @@ class_name ZAI_Obstacle
 
 @export var radius:float = 50
 @export var disable:bool = false
+@export var debug:bool = false
+@export var debugShowActive:bool = false
 @export var debugPassiveColor:Color = Color.WHITE
 @export var debugActiveColor:Color = Color.FIREBRICK
 
@@ -32,8 +34,12 @@ func set_active()->void:
 	isActive = false
 	
 func _draw() -> void:
-	var local_target:Vector2 = to_local(global_position)
-	if isActive:
-		draw_arc(local_target, radius, 0, TAU, 32, debugActiveColor, 2.0)
-	else:
-		draw_arc(local_target, radius, 0, TAU, 32, debugPassiveColor, 2.0)
+	if debug:
+		var local_target:Vector2 = to_local(global_position)
+		if debugShowActive:
+			if isActive:
+				draw_arc(local_target, radius, 0, TAU, 32, debugActiveColor, 2.0)
+			else:
+				draw_arc(local_target, radius, 0, TAU, 32, debugPassiveColor, 2.0)
+		else:
+			draw_arc(local_target, radius, 0, TAU, 32, debugPassiveColor, 2.0)

@@ -1,34 +1,34 @@
-[gd_scene load_steps=12 format=3 uid="uid://cy1kkm4qihfuh"]
+[gd_scene load_steps=11 format=3 uid="uid://ccyd26y2y1v8f"]
 
-[ext_resource type="Script" uid="uid://cgra4mbvmwdvi" path="res://scripts/ZAI_Manager.gd" id="1_3lv2x"]
-[ext_resource type="Texture2D" uid="uid://m4k6kkhgrl4p" path="res://art/runtime/Character.png" id="2_h21tv"]
-[ext_resource type="Script" uid="uid://chbaktxhg8vp3" path="res://scripts/ZAI_Character.gd" id="3_nmv6d"]
-[ext_resource type="Script" uid="uid://rfhrgsjvv2am" path="res://scripts/behaviors/ZAI_Behavior_Wander.gd" id="4_meys1"]
-[ext_resource type="Script" uid="uid://ehn7jh438wrv" path="res://scripts/behaviors/ZAI_Behavior_ObstacleAvoidance.gd" id="5_6nxr2"]
-[ext_resource type="Script" uid="uid://bcujqh5f1pofk" path="res://scripts/behaviors/ZAI_Behavior_WallAvoidance.gd" id="6_3kib4"]
-[ext_resource type="Texture2D" uid="uid://dpntsbdut1fod" path="res://art/source/trace_05.png" id="7_6nxr2"]
-[ext_resource type="Script" uid="uid://cnx8lyy4egsp2" path="res://scripts/ZAI_Wall.gd" id="7_61j7f"]
-[ext_resource type="Script" uid="uid://cgcjhkc4o8m0k" path="res://scripts/simulation/ZAI_FlockSpawner.gd" id="8_06u1e"]
-[ext_resource type="PackedScene" uid="uid://dgl60f47ul5rd" path="res://entities/flock_02.tscn" id="9_gl6sd"]
-[ext_resource type="Script" uid="uid://l024pr03sevx" path="res://scripts/ZAI_Obstacle.gd" id="10_b7f7c"]
+[ext_resource type="Script" uid="uid://cgra4mbvmwdvi" path="res://scripts/ZAI_Manager.gd" id="1_vjdj4"]
+[ext_resource type="Texture2D" uid="uid://m4k6kkhgrl4p" path="res://art/runtime/Character.png" id="2_1l7uc"]
+[ext_resource type="Script" uid="uid://chbaktxhg8vp3" path="res://scripts/ZAI_Character.gd" id="3_vg3x5"]
+[ext_resource type="Script" uid="uid://ehn7jh438wrv" path="res://scripts/behaviors/ZAI_Behavior_ObstacleAvoidance.gd" id="4_7t76n"]
+[ext_resource type="Script" uid="uid://rfhrgsjvv2am" path="res://scripts/behaviors/ZAI_Behavior_Wander.gd" id="5_6yp34"]
+[ext_resource type="Script" uid="uid://bcujqh5f1pofk" path="res://scripts/behaviors/ZAI_Behavior_WallAvoidance.gd" id="6_t7lu6"]
+[ext_resource type="Script" uid="uid://cnx8lyy4egsp2" path="res://scripts/ZAI_Wall.gd" id="7_1u0u5"]
+[ext_resource type="Script" uid="uid://cgcjhkc4o8m0k" path="res://scripts/simulation/ZAI_FlockSpawner.gd" id="8_ro0ud"]
+[ext_resource type="PackedScene" uid="uid://dgl60f47ul5rd" path="res://entities/flock_02.tscn" id="9_43ksw"]
+[ext_resource type="Script" uid="uid://l024pr03sevx" path="res://scripts/ZAI_Obstacle.gd" id="10_rbwdo"]
 
 [node name="AIScene" type="Node2D"]
-script = ExtResource("1_3lv2x")
+script = ExtResource("1_vjdj4")
 
-[node name="Wander" type="Sprite2D" parent="."]
-self_modulate = Color(0.8883214, 0.45110673, 0.44624478, 1)
+[node name="Wander" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
+self_modulate = Color(0.74, 0.29599997, 0.3033999, 1)
 position = Vector2(505, 289)
-texture = ExtResource("2_h21tv")
-script = ExtResource("3_nmv6d")
+texture = ExtResource("2_1l7uc")
+script = ExtResource("3_vg3x5")
 groupId = 5
 max_speed = 150.0
 max_force = 50.0
 useSmoothRotation = true
 forceCombinationType = 1
+behaviorList = [NodePath("AIWander"), NodePath("AIWallAvoidance"), NodePath("AIObstacleAvoidance")]
 
 [node name="AIWander" type="Node2D" parent="Wander"]
 position = Vector2(3, -1)
-script = ExtResource("4_meys1")
+script = ExtResource("5_6yp34")
 strength = 10.0
 offsetFromCharacter = 100.0
 radius = 75.0
@@ -36,7 +36,7 @@ debugRadius = true
 
 [node name="AIObstacleAvoidance" type="Node2D" parent="Wander"]
 position = Vector2(2, -1)
-script = ExtResource("5_6nxr2")
+script = ExtResource("4_7t76n")
 feelerLength = 150.0
 feelerWidth = 15.0
 debugFeelers = true
@@ -44,51 +44,37 @@ weight = 2.0
 priority = 3.0
 
 [node name="AIWallAvoidance" type="Node2D" parent="Wander"]
-script = ExtResource("6_3kib4")
+script = ExtResource("6_t7lu6")
 feelerLength = 75.0
 feelerWidth = 15.0
 priority = 2.0
 debugColor = Color(1, 0.23921569, 0.23921569, 1)
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="Wander"]
-position = Vector2(15, 0)
-rotation = -1.5707964
-amount = 6
-texture = ExtResource("7_6nxr2")
-lifetime = 0.15000000000000002
-lifetime_randomness = 0.25
-particle_flag_align_y = true
-spread = 180.0
-gravity = Vector2(0, 0)
-scale_amount_min = 0.2
-scale_amount_max = 0.2
-color = Color(0.8901961, 0.4509804, 0.44705883, 0.6862745)
-
 [node name="Wall_01" type="Node2D" parent="."]
 position = Vector2(516, 282)
-script = ExtResource("7_61j7f")
+script = ExtResource("7_1u0u5")
 points = PackedVector2Array(-460, -249, 12.095337, -241.72047, 493, -255, 582, -158, 582, 291)
 point_in_controls = Array[Vector2]([Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0)])
 point_out_controls = Array[Vector2]([Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0)])
 
 [node name="Wall_02" type="Node2D" parent="."]
 position = Vector2(504, 560)
-script = ExtResource("7_61j7f")
+script = ExtResource("7_1u0u5")
 points = PackedVector2Array(-383, 52, 502, 55, 595, 17)
 point_in_controls = Array[Vector2]([Vector2(0, 0), Vector2(0, 0), Vector2(0, 0)])
 point_out_controls = Array[Vector2]([Vector2(0, 0), Vector2(0, 0), Vector2(0, 0)])
 
 [node name="Wall_03" type="Node2D" parent="."]
 position = Vector2(518, 284)
-script = ExtResource("7_61j7f")
+script = ExtResource("7_1u0u5")
 points = PackedVector2Array(-467, -257, -475, 288, -400, 331)
 point_in_controls = Array[Vector2]([Vector2(0, 0), Vector2(0, 0), Vector2(0, 0)])
 point_out_controls = Array[Vector2]([Vector2(0, 0), Vector2(0, 0), Vector2(0, 0)])
 
 [node name="FlockSpawner" type="Node2D" parent="." node_paths=PackedStringArray("fleeTarget")]
 position = Vector2(135, 158)
-script = ExtResource("8_06u1e")
-flockPrefab = ExtResource("9_gl6sd")
+script = ExtResource("8_ro0ud")
+flockPrefab = ExtResource("9_43ksw")
 color = Color(0.7887855, 0.5228758, 0.28254193, 1)
 totalUnitCount = 10
 fleeTarget = NodePath("../Wander")
@@ -96,8 +82,8 @@ groupId = 0
 
 [node name="FlockSpawner2" type="Node2D" parent="." node_paths=PackedStringArray("fleeTarget")]
 position = Vector2(952, 456)
-script = ExtResource("8_06u1e")
-flockPrefab = ExtResource("9_gl6sd")
+script = ExtResource("8_ro0ud")
+flockPrefab = ExtResource("9_43ksw")
 color = Color(0.30166993, 0.62109107, 0.44675916, 1)
 totalUnitCount = 10
 fleeTarget = NodePath("../Wander")
@@ -105,8 +91,8 @@ groupId = 1
 
 [node name="FlockSpawner3" type="Node2D" parent="." node_paths=PackedStringArray("fleeTarget")]
 position = Vector2(338, 550)
-script = ExtResource("8_06u1e")
-flockPrefab = ExtResource("9_gl6sd")
+script = ExtResource("8_ro0ud")
+flockPrefab = ExtResource("9_43ksw")
 color = Color(0.24650392, 0.5816236, 0.76706064, 1)
 totalUnitCount = 10
 fleeTarget = NodePath("../Wander")
@@ -116,22 +102,22 @@ groupId = 2
 
 [node name="Obstacle_09" type="Sprite2D" parent="Obstacles"]
 position = Vector2(545, 459)
-script = ExtResource("10_b7f7c")
+script = ExtResource("10_rbwdo")
 radius = 75.0
 debug = true
 
 [node name="Obstacle_10" type="Sprite2D" parent="Obstacles"]
 position = Vector2(548, 175)
-script = ExtResource("10_b7f7c")
+script = ExtResource("10_rbwdo")
 radius = 75.0
 debug = true
 
 [node name="Obstacle_11" type="Sprite2D" parent="Obstacles"]
 position = Vector2(242, 324)
-script = ExtResource("10_b7f7c")
+script = ExtResource("10_rbwdo")
 debug = true
 
 [node name="Obstacle_12" type="Sprite2D" parent="Obstacles"]
 position = Vector2(894, 328)
-script = ExtResource("10_b7f7c")
+script = ExtResource("10_rbwdo")
 debug = true
