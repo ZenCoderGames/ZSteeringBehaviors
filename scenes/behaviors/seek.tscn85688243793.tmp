@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dxecrovvx3pr4"]
+[gd_scene load_steps=7 format=3 uid="uid://dxecrovvx3pr4"]
 
 [ext_resource type="Texture2D" uid="uid://m4k6kkhgrl4p" path="res://art/runtime/Character.png" id="1_8fj5u"]
 [ext_resource type="Script" uid="uid://cgra4mbvmwdvi" path="res://scripts/ZAI_Manager.gd" id="1_sh3nn"]
@@ -6,10 +6,6 @@
 [ext_resource type="Script" uid="uid://dlmhsuayspqhw" path="res://scripts/behaviors/ZAI_Behavior_Seek.gd" id="3_eaolc"]
 [ext_resource type="Texture2D" uid="uid://dpntsbdut1fod" path="res://art/source/trace_05.png" id="5_nmtgd"]
 [ext_resource type="Script" uid="uid://d3n3xl7eiqs3l" path="res://scripts/visuals/ZAI_TrailManager.gd" id="6_8wud0"]
-
-[sub_resource type="Curve" id="Curve_8wud0"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.9899396, 0), 0.0, 0.0, 0, 0]
-point_count = 2
 
 [node name="AIScene" type="Node2D"]
 script = ExtResource("1_sh3nn")
@@ -29,18 +25,16 @@ debug_arrival = true
 priority = 2.0
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="Seeker"]
-z_index = -1
 position = Vector2(15, 0)
 rotation = -1.5707964
-amount = 4
+amount = 3
 texture = ExtResource("5_nmtgd")
 lifetime = 0.15000000000000002
+lifetime_randomness = 0.25
 particle_flag_align_y = true
 spread = 180.0
 gravity = Vector2(0, 0)
-scale_amount_min = 0.2
-scale_amount_max = 0.2
-scale_amount_curve = SubResource("Curve_8wud0")
+scale_amount_min = 0.15
+scale_amount_max = 0.15
 color = Color(0.29411766, 0.74509805, 0.72156864, 0.6862745)
 script = ExtResource("6_8wud0")
-stopThreshold = 50.0

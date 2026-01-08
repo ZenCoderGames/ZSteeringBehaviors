@@ -14,17 +14,15 @@
 [node name="AIScene" type="Node2D"]
 script = ExtResource("1_vjdj4")
 
-[node name="Wander" type="Sprite2D" parent="." node_paths=PackedStringArray("behaviorList")]
+[node name="Wander" type="Sprite2D" parent="."]
 self_modulate = Color(0.74, 0.29599997, 0.3033999, 1)
 position = Vector2(505, 289)
 texture = ExtResource("2_1l7uc")
 script = ExtResource("3_vg3x5")
 groupId = 5
-max_speed = 150.0
 max_force = 50.0
 useSmoothRotation = true
 forceCombinationType = 1
-behaviorList = [NodePath("AIWander"), NodePath("AIWallAvoidance"), NodePath("AIObstacleAvoidance")]
 
 [node name="AIWander" type="Node2D" parent="Wander"]
 position = Vector2(3, -1)

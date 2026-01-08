@@ -26,7 +26,7 @@ set_target_as_mouse_pos = true
 offsetRecalcThreshold = 5.0
 priority = 2.0
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="Seeker" node_paths=PackedStringArray("AI_Char")]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Seeker"]
 z_index = -1
 position = Vector2(15, 0)
 rotation = -1.5707964
@@ -40,7 +40,6 @@ scale_amount_min = 0.15
 scale_amount_max = 0.15
 color = Color(0.29411766, 0.74509805, 0.72156864, 0.6862745)
 script = ExtResource("6_xh50l")
-AI_Char = NodePath("..")
 stopThreshold = 50.0
 
 [node name="Pursuer" type="Sprite2D" parent="."]
@@ -54,12 +53,13 @@ useSmoothRotation = true
 
 [node name="AIPursuit" type="Node2D" parent="Pursuer" node_paths=PackedStringArray("target_char")]
 script = ExtResource("7_mmsq8")
-offset = Vector2(100, 0)
+offset = Vector2(50, -100)
 offsetRecalcThreshold = 5.0
+debug = true
 debugColor = Color(0.7645988, 0.4047234, 0.78558826, 1)
 target_char = NodePath("../../Seeker")
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="Pursuer" node_paths=PackedStringArray("AI_Char")]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Pursuer"]
 z_index = -1
 position = Vector2(15, 0)
 rotation = -1.5707964
@@ -73,5 +73,37 @@ scale_amount_min = 0.15
 scale_amount_max = 0.15
 color = Color(0.29411766, 0.74509805, 0.72156864, 0.6862745)
 script = ExtResource("6_xh50l")
-AI_Char = NodePath("..")
+stopThreshold = 50.0
+
+[node name="Pursuer2" type="Sprite2D" parent="."]
+self_modulate = Color(0.75, 0.64275, 0.4575, 1)
+position = Vector2(262, 1032)
+texture = ExtResource("2_scfqy")
+script = ExtResource("3_3astq")
+max_speed = 150.0
+max_force = 50.0
+useSmoothRotation = true
+
+[node name="AIPursuit" type="Node2D" parent="Pursuer2" node_paths=PackedStringArray("target_char")]
+script = ExtResource("7_mmsq8")
+offset = Vector2(-50, -100)
+offsetRecalcThreshold = 5.0
+debug = true
+debugColor = Color(0.7490196, 0.6431373, 0.45882353, 1)
+target_char = NodePath("../../Seeker")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Pursuer2"]
+z_index = -1
+position = Vector2(15, 0)
+rotation = -1.5707964
+amount = 3
+texture = ExtResource("5_trmrb")
+lifetime = 0.09999999999999999
+particle_flag_align_y = true
+spread = 180.0
+gravity = Vector2(0, 0)
+scale_amount_min = 0.15
+scale_amount_max = 0.15
+color = Color(0.29411766, 0.74509805, 0.72156864, 0.6862745)
+script = ExtResource("6_xh50l")
 stopThreshold = 50.0

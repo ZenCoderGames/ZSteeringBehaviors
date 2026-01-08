@@ -43,7 +43,7 @@ script = ExtResource("5_jakgw")
 containmentZone = NodePath("../../ContainmentCircleZone")
 priority = 2.0
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="Wander" node_paths=PackedStringArray("AI_Char")]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Wander"]
 z_index = -1
 position = Vector2(15, 0)
 rotation = -1.5707964
@@ -57,7 +57,6 @@ scale_amount_min = 0.15
 scale_amount_max = 0.15
 color = Color(0.29411766, 0.74509805, 0.72156864, 0.6862745)
 script = ExtResource("7_wwsvg")
-AI_Char = NodePath("..")
 stopThreshold = 50.0
 
 [node name="Seeker" type="Sprite2D" parent="."]
@@ -68,7 +67,6 @@ script = ExtResource("3_48yj1")
 max_force = 50.0
 useSmoothRotation = true
 rotation_speed = 10.0
-debug = true
 forceCombinationType = 1
 
 [node name="AISeek" type="Node2D" parent="Seeker"]
@@ -85,7 +83,7 @@ debugFeelers = true
 priority = 2.0
 debug = true
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="Seeker" node_paths=PackedStringArray("AI_Char")]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Seeker"]
 z_index = -1
 position = Vector2(15, 0)
 rotation = -1.5707964
@@ -99,10 +97,10 @@ scale_amount_min = 0.15
 scale_amount_max = 0.15
 color = Color(0.29411766, 0.74509805, 0.72156864, 0.6862745)
 script = ExtResource("7_wwsvg")
-AI_Char = NodePath("..")
 stopThreshold = 50.0
 
 [node name="Pursuer" type="Sprite2D" parent="."]
+visible = false
 self_modulate = Color(0.74, 0.29599997, 0.3033999, 1)
 position = Vector2(1013, 557)
 texture = ExtResource("2_ahe7j")
@@ -111,6 +109,7 @@ max_speed = 150.0
 max_force = 300.0
 useSmoothRotation = true
 rotation_speed = 10.0
+disable = true
 debug = true
 forceCombinationType = 1
 
@@ -127,7 +126,7 @@ feelerWidth = 15.0
 debugFeelers = true
 priority = 2.0
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="Pursuer" node_paths=PackedStringArray("AI_Char")]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Pursuer"]
 z_index = -1
 position = Vector2(15, 0)
 rotation = -1.5707964
@@ -141,7 +140,6 @@ scale_amount_min = 0.15
 scale_amount_max = 0.15
 color = Color(0.29411766, 0.74509805, 0.72156864, 0.6862745)
 script = ExtResource("7_wwsvg")
-AI_Char = NodePath("..")
 stopThreshold = 50.0
 
 [node name="Obstacles" type="Node2D" parent="."]
@@ -228,5 +226,7 @@ debug = true
 debugShowActive = true
 
 [node name="ContainmentCircleZone" type="Node2D" parent="."]
+visible = false
 position = Vector2(573, 338)
 script = ExtResource("7_vf14h")
+debug = null

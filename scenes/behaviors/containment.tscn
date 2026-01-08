@@ -1,9 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://lqa1rnq4h2eq"]
+[gd_scene load_steps=9 format=3 uid="uid://lqa1rnq4h2eq"]
 
 [ext_resource type="Script" uid="uid://cgra4mbvmwdvi" path="res://scripts/ZAI_Manager.gd" id="1_23sr8"]
 [ext_resource type="Texture2D" uid="uid://m4k6kkhgrl4p" path="res://art/runtime/Character.png" id="2_nadlw"]
 [ext_resource type="Script" uid="uid://chbaktxhg8vp3" path="res://scripts/ZAI_Character.gd" id="3_1o81b"]
-[ext_resource type="Script" uid="uid://dlmhsuayspqhw" path="res://scripts/behaviors/ZAI_Behavior_Seek.gd" id="4_nadlw"]
 [ext_resource type="Script" uid="uid://rfhrgsjvv2am" path="res://scripts/behaviors/ZAI_Behavior_Wander.gd" id="4_ub0w2"]
 [ext_resource type="Script" uid="uid://b72t1q6fnvtfh" path="res://scripts/behaviors/ZAI_Behavior_Containment.gd" id="5_yh5mc"]
 [ext_resource type="Texture2D" uid="uid://dpntsbdut1fod" path="res://art/source/trace_05.png" id="6_ky1u2"]
@@ -13,53 +12,17 @@
 [node name="AIScene" type="Node2D"]
 script = ExtResource("1_23sr8")
 
-[node name="Seeker" type="Sprite2D" parent="."]
-self_modulate = Color(0.29444468, 0.7441041, 0.721786, 1)
-position = Vector2(595, 417)
-texture = ExtResource("2_nadlw")
-script = ExtResource("3_1o81b")
-max_speed = 300.0
-max_force = 50.0
-debug = true
-
-[node name="AISeek" type="Node2D" parent="Seeker"]
-script = ExtResource("4_nadlw")
-set_target_as_mouse_pos = true
-offsetRecalcThreshold = 5.0
-
-[node name="AIContainment" type="Node2D" parent="Seeker" node_paths=PackedStringArray("containmentZone")]
-script = ExtResource("5_yh5mc")
-containmentZone = NodePath("../../ContainmentBoxZone")
-priority = 2.0
-debug = true
-
-[node name="CPUParticles2D" type="CPUParticles2D" parent="Seeker" node_paths=PackedStringArray("AI_Char")]
-z_index = -1
-position = Vector2(15, 0)
-rotation = -1.5707964
-amount = 3
-texture = ExtResource("6_ky1u2")
-lifetime = 0.09999999999999999
-particle_flag_align_y = true
-spread = 180.0
-gravity = Vector2(0, 0)
-scale_amount_min = 0.15
-scale_amount_max = 0.15
-color = Color(0.29411766, 0.74509805, 0.72156864, 0.6862745)
-script = ExtResource("7_7jynt")
-AI_Char = NodePath("..")
-stopThreshold = 50.0
-
 [node name="Wander" type="Sprite2D" parent="."]
 self_modulate = Color(0.68449914, 0.61823654, 0.8625234, 1)
 position = Vector2(505, 289)
 texture = ExtResource("2_nadlw")
 script = ExtResource("3_1o81b")
+max_speed = 150.0
 max_force = 50.0
 
 [node name="AIWander" type="Node2D" parent="Wander"]
 script = ExtResource("4_ub0w2")
-strength = 5.0
+strength = 20.0
 offsetFromCharacter = 75.0
 radius = 50.0
 debugRadius = true
@@ -71,7 +34,7 @@ containmentZone = NodePath("../../ContainmentBoxZone")
 priority = 2.0
 debug = true
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="Wander" node_paths=PackedStringArray("AI_Char")]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Wander"]
 z_index = -1
 position = Vector2(15, 0)
 rotation = -1.5707964
@@ -85,13 +48,13 @@ scale_amount_min = 0.15
 scale_amount_max = 0.15
 color = Color(0.29411766, 0.74509805, 0.72156864, 0.6862745)
 script = ExtResource("7_7jynt")
-AI_Char = NodePath("..")
 stopThreshold = 50.0
 
 [node name="ContainmentCircleZone" type="Node2D" parent="."]
 visible = false
 position = Vector2(583, 323)
 script = ExtResource("7_1o81b")
+debug = null
 
 [node name="ContainmentBoxZone" type="Node2D" parent="."]
 position = Vector2(203, 79)
@@ -99,3 +62,4 @@ script = ExtResource("7_1o81b")
 type = 1
 radius = 0.0
 boxBotRight = Vector2(800, 500)
+debug = null

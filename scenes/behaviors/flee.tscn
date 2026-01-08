@@ -24,7 +24,7 @@ debug = true
 debugColor = Color(0.5844146, 0, 0.05526655, 1)
 target_char = NodePath("../../Seeker")
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="Fleeer" node_paths=PackedStringArray("AI_Char")]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Fleeer"]
 z_index = -1
 position = Vector2(15, 0)
 rotation = -1.5707964
@@ -38,7 +38,6 @@ scale_amount_min = 0.15
 scale_amount_max = 0.15
 color = Color(0.29411766, 0.74509805, 0.72156864, 0.6862745)
 script = ExtResource("6_nnrrs")
-AI_Char = NodePath("..")
 stopThreshold = 50.0
 
 [node name="Seeker" type="Sprite2D" parent="."]
@@ -52,9 +51,8 @@ max_speed = 250.0
 script = ExtResource("6_serxv")
 set_target_as_mouse_pos = true
 priority = 2.0
-debug = true
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="Seeker" node_paths=PackedStringArray("AI_Char")]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Seeker"]
 z_index = -1
 position = Vector2(15, 0)
 rotation = -1.5707964
@@ -68,5 +66,4 @@ scale_amount_min = 0.15
 scale_amount_max = 0.15
 color = Color(0.29411766, 0.74509805, 0.72156864, 0.6862745)
 script = ExtResource("6_nnrrs")
-AI_Char = NodePath("..")
 stopThreshold = 50.0

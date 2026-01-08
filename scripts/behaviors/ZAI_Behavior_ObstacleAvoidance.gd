@@ -70,7 +70,7 @@ func calc_steering_force_01(obstacle:ZAI_Obstacle)->Vector2:
 	steeringForce *= parentCharacter.max_speed
 
 	# Scale by distance - closer obstacles exert stronger avoidance force
-	var strength:float = 1.0 + (distance / (obstacle.radius + feelerWidth))
+	var strength:float = 1.0 + (distance / (obstacle.radius + (feelerWidth * 2)))
 	steeringForce *= strength
 
 	return steeringForce
